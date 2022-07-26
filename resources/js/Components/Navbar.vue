@@ -1,47 +1,86 @@
+<script setup>
+import { Icon } from '@iconify/vue';
+</script>
+
 <template>
-  <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
-    <a href="/" class="d-block p-3 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
-      <svg class="bi pe-none" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      <span class="visually-hidden">Icon-only</span>
-    </a>
+  <aside class="sidebar d-flex flex-column flex-shrink-0 bg-light">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
       <li class="nav-item">
-        <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home"/></svg>
+        <a href="/" class="d-block py-4 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
+          <Icon icon="ion:bag-handle" class="nav-logo" />
+          <span class="visually-hidden">Icon-only</span>
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Dashboard"><use xlink:href="#speedometer2"/></svg>
+      <li class="nav-item">
+        <a href="#" class="nav-link py-3 active rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+          <Icon icon="ion:home" class="nav-icon" />
+          Home
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Orders"><use xlink:href="#table"/></svg>
+      <li class="nav-item">
+        <a href="#" class="nav-link py-3 rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+          <Icon icon="ion:cart" class="nav-icon" />
+          Layanan
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Products"><use xlink:href="#grid"/></svg>
+      <li class="nav-item">
+        <a href="#" class="nav-link py-3 rounded-0" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+          <Icon icon="ion:list-circle" class="nav-icon" />
+          Transaksi
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
+      <li class="nav-item">
+        <a href="#" class="nav-link py-3 rounded-0" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
+          <Icon icon="ion:people" class="nav-icon" />
+          Pelanggan
         </a>
       </li>
     </ul>
-    <div class="dropdown border-top">
-      <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
-      </a>
-      <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
-    </div>
-  </div>
+
+    <a href="#" class="nav-link py-4 rounded-0 text-primary" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
+      <Icon icon="ion:log-out" class="nav-icon" />
+      Log Out
+    </a>
+  </aside>
 </template>
+
+<style scoped lang="scss">
+.sidebar {
+  font-size: 0.6rem;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .nav-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .sidebar {
+    font-size: 0.7rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .sidebar {
+    font-size: 0.8rem;
+  }
+  .nav-icon {
+    font-size: 1.8rem;
+  }
+
+  .nav-logo {
+    font-size: 2rem;
+  }
+}
+
+</style>
