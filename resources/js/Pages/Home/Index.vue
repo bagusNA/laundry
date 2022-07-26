@@ -1,6 +1,6 @@
 <script setup>
 import Navbar from '@/Components/Navbar.vue';
-import Category from '@/Components/Category.vue';
+import Category from '@/Components/CategoryCard.vue';
 import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
 
