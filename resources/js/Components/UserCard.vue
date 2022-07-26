@@ -3,7 +3,7 @@ defineProps(['name', 'position', 'picture']);
 </script>
 
 <template>
-  <div class="d-flex justify-content-between bg-primary rounded-3">
+  <div class="user d-flex justify-content-between bg-primary text-light rounded-3">
     <div class="d-flex flex-column p-2">
       <span class="user__name">{{ name }}</span>
       <span class="user__position">{{ position }}</span>
@@ -20,6 +20,8 @@ defineProps(['name', 'position', 'picture']);
 
 <style scoped lang="scss">
 .user {
+  padding-left: 1rem;
+
   &__name {
     font-size: 1rem;
     padding-bottom: 0.5rem;
