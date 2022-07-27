@@ -3,6 +3,7 @@ import Navbar from '@/Components/Navbar.vue';
 import Category from '@/Components/CategoryCard.vue';
 import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
+import BillCard from '@/Components/BillCard.vue';
 
 function hi() {
   console.log('hi')
@@ -19,7 +20,7 @@ function hi() {
         <Category v-for="n in 5" />
       </div>
       <div class="service-list">
-        <ServiceCard v-for="n in 10"
+        <ServiceCard v-for="n in 20"
           name="Reguler 3 Hari" 
           :price="5000"
           icon="ion:home"
@@ -34,7 +35,9 @@ function hi() {
       <div class="bill bg-secondary bg-opacity-75">
         <span class="bill__title">Bill</span>
         <div class="bill__content">
-          hi
+          <BillCard serviceName="Reguler 3 Hari" :timeEstimate="72" :price="5000" :quantity="1" icon="ion:home" />
+          <BillCard serviceName="Express 1 Hari" :timeEstimate="24" :price="8000" :quantity="1" icon="ion:home" />
+          <BillCard serviceName="Express 12 Jam" :timeEstimate="12" :price="10000" :quantity="1" icon="ion:home" />
         </div>
         <div
           class="bill__next-btn bg-primary text-light"
@@ -56,6 +59,8 @@ function hi() {
 .main {
   flex: 1;
   padding: 1rem 1.5rem;
+  height: 100vh;
+  overflow: auto;
 
   .title {
     padding-bottom: 1.5rem;
@@ -76,7 +81,7 @@ function hi() {
 }
 
 .side-content {
-  width: 30%;
+  width: 35%;
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -96,10 +101,14 @@ function hi() {
 
     &__title {
       font-size: 2rem;
+      padding-bottom: 1rem;
     }
 
     &__content {
       flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px 0;
     }
 
     &__next-btn {
