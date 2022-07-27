@@ -6,6 +6,7 @@ import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
 import { ref } from 'vue';
 
+const total = ref(0);
 const billList = ref([]);
 
 // Dummy data
@@ -49,8 +50,9 @@ function addToBill(id) {
     const index = billList.value.indexOf(service);
     billList.value[index] = {
       ...service, 
-      qty: service.qty + 1
+      qty: service.qty + 1,
     }
+    total.value += service.price;
     
     return;
   }
@@ -61,8 +63,9 @@ function addToBill(id) {
   
   billList.value.push({
     ...service,
-    qty: 1
+    qty: 1,
   });
+  total.value += service.price;
 }
 </script>
 
@@ -97,6 +100,10 @@ function addToBill(id) {
             :quantity="bill.qty" 
             icon="ion:home"
           />
+        </div>
+
+        <div class="bill__total-wrapper">
+          Total: <span class="bill__total">Rp. {{ total }}</span>
         </div>
         <div
           class="bill__next-btn bg-primary text-light"
@@ -152,37 +159,48 @@ function addToBill(id) {
 }
 
 .bill {
+  flex-grow: 1;
+  padding: 1rem 1.5rem;
+  border-top-left-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+  }
+
+  &__content {
     flex-grow: 1;
-    padding: 1rem 1.5rem;
-    border-top-left-radius: 10px;
     display: flex;
     flex-direction: column;
+    gap: 10px 0;
+  }
 
-    &__title {
-      font-size: 2rem;
-      padding-bottom: 1rem;
-    }
+  &__total-wrapper {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    padding-bottom: 0.75rem;
+  }
 
-    &__content {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px 0;
-    }
+  &__total {
+    font-weight: bold;
+  }
 
-    &__next-btn {
-      padding: 1.5rem 1rem;
-      border-radius: 10px;
-      font-size: 1.5rem;
-      text-align: center;
-      transition: 100ms;
+  &__next-btn {
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+    transition: 100ms;
 
-      &:hover {
-        cursor: pointer;
-        opacity: 0.9;
-      }
+    &:hover {
+      cursor: pointer;
+      opacity: 0.9;
     }
   }
+}
 
 @media only screen and (min-width: 768px) {
   .sidebar {
