@@ -4,11 +4,66 @@ import Category from '@/Components/CategoryCard.vue';
 import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
+import { ref } from 'vue';
+
+const billList = ref([]);
+
+// Dummy data
+const serviceList = [
+  {
+    id: 1,
+    name: 'Reguler 3 Hari',
+    time: 72,
+    price: 5000,
+    icon: 'ion:home'
+  },
+  {
+    id: 2,
+    name: 'Express 1 Hari',
+    time: 24,
+    price: 7000,
+    icon: 'ion:home'
+  },
+  {
+    id: 3,
+    name: 'Express 12 Jam',
+    time: 12,
+    price: 9000,
+    icon: 'ion:home'
+  },
+]
 
 function hi() {
   console.log('hi')
 }
 
+function addToBill(id) {
+  let service;
+
+  if (billList.value.length) {
+    service = billList.value.find(item => item.id === id);
+  }
+
+  // Increment qty if already in list
+  if (service) {
+    const index = billList.value.indexOf(service);
+    billList.value[index] = {
+      ...service, 
+      qty: service.qty + 1
+    }
+    
+    return;
+  }
+
+  if (!service) {
+    service = serviceList.find(item => item.id === id);
+  }
+  
+  billList.value.push({
+    ...service,
+    qty: 1
+  });
+}
 </script>
 
 <template>
@@ -20,11 +75,11 @@ function hi() {
         <Category v-for="n in 5" />
       </div>
       <div class="service-list">
-        <ServiceCard v-for="n in 20"
-          name="Reguler 3 Hari" 
-          :price="5000"
-          icon="ion:home"
-          :onClick="hi"
+        <ServiceCard v-for="service in serviceList"
+          :name="service.name" 
+          :price="service.price"
+          :icon="service.icon"
+          :onClick="() => addToBill(service.id)"
         />
       </div>
     </main>
@@ -35,9 +90,13 @@ function hi() {
       <div class="bill bg-secondary bg-opacity-75">
         <span class="bill__title">Bill</span>
         <div class="bill__content">
-          <BillCard serviceName="Reguler 3 Hari" :timeEstimate="72" :price="5000" :quantity="1" icon="ion:home" />
-          <BillCard serviceName="Express 1 Hari" :timeEstimate="24" :price="8000" :quantity="1" icon="ion:home" />
-          <BillCard serviceName="Express 12 Jam" :timeEstimate="12" :price="10000" :quantity="1" icon="ion:home" />
+          <BillCard v-for="bill in billList" 
+            :serviceName="bill.name" 
+            :timeEstimate="bill.time" 
+            :price="bill.price" 
+            :quantity="bill.qty" 
+            icon="ion:home"
+          />
         </div>
         <div
           class="bill__next-btn bg-primary text-light"

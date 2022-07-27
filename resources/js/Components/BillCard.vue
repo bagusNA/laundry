@@ -1,9 +1,7 @@
 <script setup>
-import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 
-const props = defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', 'icon']);
-
+defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', 'icon']);
 </script>
 
 <template>
@@ -14,12 +12,21 @@ const props = defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', '
     <div class="serv-bill__content">
       <div class="serv-bill__content__name">{{ serviceName }}</div>
       <div class="serv-bill__content__qty">
-        <Icon icon="ion:add-circle" class="btn-icon" />
+        <Icon 
+          icon="ion:remove-circle" 
+          class="btn-icon" 
+          @click="quantity--"  
+        />
         <input 
           type="text" class="form-control qty" placeholder="kg" aria-label="quantity" aria-describedby="basic-addon1"
           :value="quantity"
         >
-        <Icon icon="ion:remove-circle" class="btn-icon" />
+        <Icon 
+          icon="ion:add-circle" 
+          class="btn-icon" 
+          @click="quantity++"  
+        />
+        kg
       </div>
     </div>
     <div class="serv-bill__estimate">
@@ -55,6 +62,7 @@ const props = defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', '
 
     &__qty {
       display: flex;
+      align-items: center;
       gap: 0 0.5rem;
     }
   }

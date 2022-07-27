@@ -26,6 +26,7 @@ defineProps(['name', 'price', 'image', 'icon', 'onClick']);
 
 <style scoped lang="scss">
 .service {
+  user-select: none;
   transition: 100ms;
 
   &__icon {
