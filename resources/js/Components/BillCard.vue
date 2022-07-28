@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue';
 
 // defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', 'icon', 'delete']);
-defineProps(['bill', 'deleteAction']);
+defineProps(['bill', 'changeAction', 'deleteAction']);
 </script>
 
 <template>
@@ -27,7 +27,7 @@ defineProps(['bill', 'deleteAction']);
         <Icon 
           icon="ion:remove-circle" 
           class="btn-icon" 
-          @click="bill.qty <= 1 ? bill.qty : bill.qty--"  
+          @click="() => changeAction(bill.id, false)"  
         />
         <input 
           type="text" class="form-control qty" placeholder="kg" aria-label="quantity" aria-describedby="basic-addon1"
@@ -36,7 +36,7 @@ defineProps(['bill', 'deleteAction']);
         <Icon 
           icon="ion:add-circle" 
           class="btn-icon" 
-          @click="bill.qty++"  
+          @click="() => changeAction(bill.id, true)"  
         />
         kg
       </div>

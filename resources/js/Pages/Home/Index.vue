@@ -71,7 +71,23 @@ function addToBill(id) {
 function deleteFromBill(id) {
   const service = billList.value.find(item => item.id === id);
   const index = billList.value.indexOf(service);
+
   if (index > -1) billList.value.splice(index, 1);
+  total.value -= service.qty * service.price;
+}
+
+function changeQty(id, isIncrement) {
+  const service = billList.value.find(item => item.id === id);
+
+  if (isIncrement) {
+    service.qty++;
+    total.value += service.price;
+  }
+  else {
+    if (service.qty <= 1) return;
+    service.qty--;
+    total.value -= service.price;
+  }
 }
 </script>
 
@@ -102,6 +118,7 @@ function deleteFromBill(id) {
           <BillCard v-for="bill in billList" 
             :bill="bill"
             :deleteAction="deleteFromBill"
+            :changeAction="changeQty"
           />
         </div>
 
