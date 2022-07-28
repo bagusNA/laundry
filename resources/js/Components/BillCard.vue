@@ -1,8 +1,11 @@
 <script setup>
+import { computed } from '@vue/reactivity';
 import { Icon } from '@iconify/vue';
+import { currencyFormat } from '../utils/currencyFormat';
 
-// defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', 'icon', 'delete']);
-defineProps(['bill', 'changeAction', 'deleteAction']);
+const props = defineProps(['bill', 'changeAction', 'deleteAction']);
+
+const subtotal = computed(() => currencyFormat(props.bill.price * props.bill.qty));
 </script>
 
 <template>
@@ -45,7 +48,7 @@ defineProps(['bill', 'changeAction', 'deleteAction']);
       {{ bill.time }} jam
     </div>
     <div class="serv-bill__subtotal">
-      Rp. {{ bill.price * bill.qty }}
+      {{ subtotal }}
     </div>
   </div>
 </template>

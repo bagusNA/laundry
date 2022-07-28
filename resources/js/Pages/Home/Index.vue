@@ -5,8 +5,11 @@ import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
 import { ref } from 'vue';
+import { computed } from '@vue/reactivity';
+import { currencyFormat } from '../../utils/currencyFormat';
 
 const total = ref(0);
+const totalString = computed(() => currencyFormat(total.value));
 const billList = ref([]);
 
 // Dummy data
@@ -123,7 +126,7 @@ function changeQty(id, isIncrement) {
         </div>
 
         <div class="bill__total-wrapper">
-          Total: <span class="bill__total">Rp. {{ total }}</span>
+          Total: <span class="bill__total">{{ totalString }}</span>
         </div>
         <div
           class="bill__next-btn bg-primary text-light"
