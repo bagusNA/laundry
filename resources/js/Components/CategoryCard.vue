@@ -4,7 +4,7 @@ import { Icon } from '@iconify/vue';
 
 <template>
   <a 
-    class="category rounded bg-secondary text-light bg-opacity-75 text-center text-decoration-none"
+    class="category rounded bg-secondary text-center text-decoration-none"
     href="#"
   >
     <span class="category__logo">

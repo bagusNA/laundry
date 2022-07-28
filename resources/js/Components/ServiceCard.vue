@@ -20,7 +20,7 @@ defineProps(['name', 'price', 'image', 'icon', 'onClick']);
       />
       <span>{{ name }}</span>
     </div>
-    <div class="service__price bg-secondary text-light rounded-bottom">Rp. {{ price }} / kg</div>
+    <div class="service__price bg-secondary rounded-bottom">Rp. {{ price }} / kg</div>
   </div>
 </template>
 

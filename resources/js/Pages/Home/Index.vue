@@ -1,12 +1,14 @@
 <script setup>
+import { ref } from 'vue';
+import { computed } from '@vue/reactivity';
+import { currencyFormat } from '../../utils/currencyFormat';
+
 import Navbar from '@/Components/Navbar.vue';
 import Category from '@/Components/CategoryCard.vue';
 import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
-import { ref } from 'vue';
-import { computed } from '@vue/reactivity';
-import { currencyFormat } from '../../utils/currencyFormat';
+import bgImage from '#/bg-full.jpeg'
 
 const total = ref(0);
 const totalString = computed(() => currencyFormat(total.value));
@@ -95,7 +97,9 @@ function changeQty(id, isIncrement) {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper"
+    :style="{ backgroundImage: `url('${bgImage}')`}"
+  >
     <Navbar class="sidebar"/>
     <main class="main">
       <h2 class="title">Daftar Layanan</h2>
@@ -115,7 +119,7 @@ function changeQty(id, isIncrement) {
       <div class="side-content__user-wrapper">
         <UserCard name="Joko Susanto" position="Cashier" />
       </div>
-      <div class="bill bg-secondary bg-opacity-75">
+      <div class="bill bg-secondary">
         <span class="bill__title">Bill</span>
         <div class="bill__content">
           <BillCard v-for="bill in billList" 
@@ -143,6 +147,8 @@ function changeQty(id, isIncrement) {
 .wrapper {
   display: flex;
   min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .main {

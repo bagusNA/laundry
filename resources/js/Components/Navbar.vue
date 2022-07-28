@@ -3,7 +3,7 @@ import { Icon } from '@iconify/vue';
 </script>
 
 <template>
-  <aside class="sidebar d-flex flex-column flex-shrink-0 bg-light">
+  <aside class="sidebar d-flex flex-column flex-shrink-0 bg-secondary">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
       <li class="nav-item">
         <a href="/" class="d-block py-4 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">

@@ -78,7 +78,7 @@ const subtotal = computed(() => currencyFormat(props.bill.price * props.bill.qty
     }
 
     &__remove {
-      padding: 0 0.3rem;
+      padding: 0.1rem 0.3rem;
       border-radius: 0.3rem;
       transition: 100ms;
       user-select: none;
