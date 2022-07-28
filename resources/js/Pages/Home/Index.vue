@@ -37,6 +37,27 @@ const serviceList = [
     price: 9000,
     icon: 'ion:home'
   },
+  {
+    id: 4,
+    name: 'Reguler 2 Hari',
+    time: 48,
+    price: 5000,
+    icon: 'ion:home'
+  },
+  {
+    id: 5,
+    name: 'Setrika 24 jam',
+    time: 24,
+    price: 5000,
+    icon: 'ion:home'
+  },
+  {
+    id: 6,
+    name: 'Bedcover 7 hari',
+    time: 168,
+    price: 20000,
+    icon: 'ion:home'
+  },
 ]
 
 function hi() {
@@ -147,8 +168,8 @@ function changeQty(id, isIncrement) {
 .wrapper {
   display: flex;
   min-height: 100vh;
-  background-repeat: no-repeat;
-  background-size: cover;
+  // background-repeat: no-repeat;
+  // background-size: cover;
 }
 
 .main {
@@ -204,6 +225,7 @@ function changeQty(id, isIncrement) {
     display: flex;
     flex-direction: column;
     gap: 2rem 0;
+    padding-bottom: 2rem;
   }
 
   &__total-wrapper {
