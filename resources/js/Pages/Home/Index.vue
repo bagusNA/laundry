@@ -67,6 +67,12 @@ function addToBill(id) {
   });
   total.value += service.price;
 }
+
+function deleteFromBill(id) {
+  const service = billList.value.find(item => item.id === id);
+  const index = billList.value.indexOf(service);
+  if (index > -1) billList.value.splice(index, 1);
+}
 </script>
 
 <template>
@@ -94,11 +100,8 @@ function addToBill(id) {
         <span class="bill__title">Bill</span>
         <div class="bill__content">
           <BillCard v-for="bill in billList" 
-            :serviceName="bill.name" 
-            :timeEstimate="bill.time" 
-            :price="bill.price" 
-            :quantity="bill.qty" 
-            icon="ion:home"
+            :bill="bill"
+            :deleteAction="deleteFromBill"
           />
         </div>
 
@@ -174,7 +177,7 @@ function addToBill(id) {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px 0;
+    gap: 2rem 0;
   }
 
   &__total-wrapper {

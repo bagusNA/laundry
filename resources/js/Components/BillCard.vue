@@ -1,39 +1,51 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 
-defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', 'icon']);
+// defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', 'icon', 'delete']);
+defineProps(['bill', 'deleteAction']);
 </script>
 
 <template>
   <div class="serv-bill">
-    <div class="serv-bill__logo bg-secondary text-light rounded-3">
-      <Icon :icon="icon" />
+    <div class="serv-bill__logo bg-primary text-light rounded-3">
+      <Icon :icon="bill.icon" />
     </div>
     <div class="serv-bill__content">
-      <div class="serv-bill__content__name">{{ serviceName }}</div>
+      <div class="serv-bill__content__name">
+        {{ bill.name }}
+        <span 
+          class="serv-bill__content__remove bg-danger"
+          @click="() => deleteAction(bill.id)"
+        >
+          <Icon 
+            icon="ion:trash-bin" 
+            
+          />
+        </span>
+      </div>
       <div class="serv-bill__content__qty">
         <Icon 
           icon="ion:remove-circle" 
           class="btn-icon" 
-          @click="quantity--"  
+          @click="bill.qty <= 1 ? bill.qty : bill.qty--"  
         />
         <input 
           type="text" class="form-control qty" placeholder="kg" aria-label="quantity" aria-describedby="basic-addon1"
-          :value="quantity"
+          :value="bill.qty"
         >
         <Icon 
           icon="ion:add-circle" 
           class="btn-icon" 
-          @click="quantity++"  
+          @click="bill.qty++"  
         />
         kg
       </div>
     </div>
     <div class="serv-bill__estimate">
-      {{ timeEstimate }} jam
+      {{ bill.time }} jam
     </div>
     <div class="serv-bill__subtotal">
-      Rp. {{ price * quantity }}
+      Rp. {{ bill.price * bill.qty }}
     </div>
   </div>
 </template>
@@ -56,8 +68,23 @@ defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', 'icon']);
 
   &__content {
     &__name {
+      display: flex;
+      justify-content: space-between;
       font-size: 1.1rem;
       padding-bottom: 0.5rem;
+    }
+
+    &__remove {
+      padding: 0 0.3rem;
+      border-radius: 0.3rem;
+      transition: 100ms;
+      user-select: none;
+      filter: brightness(0.9);
+
+      &:hover {
+        cursor: pointer;
+        filter: none;
+      }
     }
 
     &__qty {
@@ -69,6 +96,9 @@ defineProps(['serviceName', 'timeEstimate', 'price', 'quantity', 'icon']);
 
   &__estimate {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   &__subtotal {
