@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('tb_karyawan', function (Blueprint $table) {
             $table->id();
+            $table->string('username', 128)->unique();
+            $table->string('password');
             $table->string('nama', 128);
             $table->string('posisi_kerja', 128);
             $table->boolean('isKasir');
             $table->timestamps();
+            $table->rememberToken();
         });
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,3 +18,5 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Home/Index');
 });
+
+Route::get('/login', [LoginController::class, 'index']);
