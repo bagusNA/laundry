@@ -1,40 +1,60 @@
 <script setup>
+import { reactive } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 import { Icon } from '@iconify/vue';
-import bgImage from '@/assets/img/bg-full.jpeg'
+import bgImage from '@/assets/img/bg-full.jpeg';
+
+const formData = reactive({
+  username: null,
+  password: null,
+});
+
+const submit = () => {
+  Inertia.post('/login', formData);
+};
 </script>
 
 <template>
-  <div class="wrapper flex-center"
+  <div class="wrapper flex-center flex-column"
     :style="{ backgroundImage: `url('${bgImage}')`}"
   >
-    <div class="login">
-      <div class="input-icon">
-        <div class="toggle-eye open">
-          <ion-icon name="eye-outline"></ion-icon>
-        </div>
-        <div class="toggle-eye close">
-          <ion-icon name="eye-off-outline"></ion-icon>
-        </div>
-        <ion-icon name="people-outline" class="input-icon1"></ion-icon>
-        <ion-icon name="key-outline" class="input-icon2"></ion-icon>
-      </div>
+    <div v-if="$page.props.flash.error" 
+      class="alert alert-danger" 
+      role="alert"
+    >
+    {{ $page.props.flash.error }} 
+    </div>
+
+    <div class="login border border-primary">
       <h2 class="login__title">LOGIN | LAUNDRY</h2>
-      <form action="#" method="POST">
+      <form @submit.prevent="submit">
         <div class="input-group mb-3">
           <span class="input-group-text" id="password">
-            <Icon icon="ion:user" />
+            <Icon icon="ion:person" />
           </span>
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="password">
+          <input v-model="formData.username"
+            type="text" 
+            class="form-control" 
+            placeholder="Username" 
+            aria-label="Username" 
+            aria-describedby="password"
+            required
+          >
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text" id="password">
             <Icon icon="ion:key" />
           </span>
-          <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password">
+          <input v-model="formData.password"
+            type="password" 
+            class="form-control" 
+            placeholder="Password" 
+            aria-label="Password" 
+            aria-describedby="password"
+            required
+          >
         </div>
-        <!-- <input type="text" name="user" placeholder="Username" class="input-control1">
-        <input type="password" name="pass" placeholder="Password" class="input-control2"> -->
-        <button type="submit" name="submit" class="login__btn">Submit</button>
+        <button type="submit" name="submit" class="btn btn-primary">Login</button>
       </form>
     </div>
   </div>
@@ -42,9 +62,7 @@ import bgImage from '@/assets/img/bg-full.jpeg'
 
 <style scoped lang="scss">
 .login {
-	width: 290px;
 	min-height: 100px;
-	border: 2px solid #ccc;
 	background-color: #fff;
 	padding: 28px;
 	box-sizing: border-box;
@@ -53,13 +71,6 @@ import bgImage from '@/assets/img/bg-full.jpeg'
   &__title {
     text-align: center;
     margin-bottom: 15px;
-  }
-
-  &__btn {
-    padding: 4px 10px;
-    background-color:#4040ff ;
-    color: #fff;
-    cursor: pointer;
   }
 }
 </style>

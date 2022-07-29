@@ -17,6 +17,9 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Home/Index');
-});
+})->middleware('auth')->name('home');
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])
+    ->middleware('guest')
+    ->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);

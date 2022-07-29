@@ -19,15 +19,13 @@ class LoginController extends Controller
             'username' => ['required'],
             'password' => ['required']
         ]);
-
+        
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
+            
             return redirect()->intended('/');
         }
 
-        return back()->withErrors([
-            'username' => 'Login failed! Please check your username and/or password.'
-        ])->onlyInput('username');
+        return back()->with('error', 'Login failed! Please check your username and/or password.');
     }
 }
