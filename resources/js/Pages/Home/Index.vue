@@ -165,13 +165,6 @@ function changeQty(id, isIncrement) {
 </template>
 
 <style scoped lang="scss">
-.wrapper {
-  display: flex;
-  min-height: 100vh;
-  // background-repeat: no-repeat;
-  // background-size: cover;
-}
-
 .main {
   flex: 1;
   padding: 1rem 1.5rem;
