@@ -8,7 +8,7 @@ import Category from '@/Components/CategoryCard.vue';
 import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
-import bgImage from '#/bg-full.jpeg'
+import bgImage from '@/assets/img/bg-full.jpeg'
 
 const total = ref(0);
 const totalString = computed(() => currencyFormat(total.value));
