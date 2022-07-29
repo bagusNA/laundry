@@ -1,13 +1,14 @@
 <script setup>
 import { Icon } from '@iconify/vue';
+import logo from '@/assets/img/logo.png';
 </script>
 
 <template>
   <aside class="sidebar d-flex flex-column flex-shrink-0 bg-secondary">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
       <li class="nav-item">
-        <a href="/" class="d-block py-4 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
-          <Icon icon="ion:bag-handle" class="nav-logo" />
+        <a href="/" class="d-block py-2 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
+          <img :src="logo" alt="Logo" class="nav-logo" width="65">
           <span class="visually-hidden">Icon-only</span>
         </a>
       </li>
