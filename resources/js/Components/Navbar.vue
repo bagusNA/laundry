@@ -1,4 +1,5 @@
 <script setup>
+import { useForm } from '@inertiajs/inertia-vue3';
 import { Icon } from '@iconify/vue';
 import logo from '@/assets/img/logo.png';
 </script>
@@ -38,7 +39,13 @@ import logo from '@/assets/img/logo.png';
       </li>
     </ul>
 
-    <a href="#" class="nav-link py-4 rounded-0 text-primary" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
+    <a @click="useForm().post('/logout')"
+      href="#" 
+      class="nav-link py-4 rounded-0 text-primary" 
+      title="Logout" 
+      data-bs-toggle="tooltip" 
+      data-bs-placement="right"
+    >
       <Icon icon="ion:log-out" class="nav-icon" />
       Log Out
     </a>

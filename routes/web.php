@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LayananController;
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +19,12 @@ Route::get('/', [LayananController::class, 'index'])
     ->middleware('auth')
     ->name('home');
 
-Route::get('/login', [LoginController::class, 'index'])
+Route::get('/login', [AuthController::class, 'login'])
     ->middleware('guest')
     ->name('login');
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/login', [AuthController::class, 'authenticate']);
+
+Route::get('/logout', fn () => redirect()->route('home'));
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');

@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
-    public function index()
+    public function login()
     {
         return Inertia::render('Login/Index');
     }
@@ -27,5 +27,15 @@ class LoginController extends Controller
         }
 
         return back()->with('error', 'Login failed! Please check your username and/or password.');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home');
     }
 }
