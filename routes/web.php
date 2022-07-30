@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\LayananController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Home/Index');
-})->middleware('auth')->name('home');
+Route::get('/', [LayananController::class, 'index'])
+    ->middleware('auth')
+    ->name('home');
 
 Route::get('/login', [LoginController::class, 'index'])
     ->middleware('guest')
