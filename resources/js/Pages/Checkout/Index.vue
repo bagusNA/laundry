@@ -7,6 +7,7 @@ import UserCard from '@/Components/UserCard.vue';
 import CheckoutDetailCard from '../../Components/layouts/CheckoutDetailCard.vue';
 import bgImage from '@/assets/img/bg-full.jpeg';
 import { reactive } from 'vue';
+import PelangganModal from '@/Components/PelangganModal.vue';
 
 defineProps(['data']);
 
@@ -35,7 +36,12 @@ const pelanggan = reactive({});
               class="pelanggan--kosong"
             >
               <h6>Pilih pelanggan terlebih dahulu.</h6>
-              <button class="btn btn-success">Pilih pelanggan</button>
+              <button class="btn btn-success"
+                data-bs-toggle="modal" 
+                data-bs-target="#modalPelanggan"
+              >
+                Pilih pelanggan
+              </button>
             </div>
           </div>
         </CheckoutDetailCard>
@@ -82,6 +88,10 @@ const pelanggan = reactive({});
         </div>
       </div>
     </aside>
+
+    <!-- <template v-show="modalActive"> -->
+      <PelangganModal />
+    <!-- </template> -->
   </div>
 </template>
 
