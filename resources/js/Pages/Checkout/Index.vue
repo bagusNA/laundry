@@ -1,5 +1,5 @@
 <script setup>
-import { Link, usePage } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 import { Icon } from '@iconify/vue';
 import { currencyFormat } from '../../utils/currencyFormat';
 
@@ -8,7 +8,8 @@ import CheckoutDetailCard from '../../Components/layouts/CheckoutDetailCard.vue'
 import bgImage from '@/assets/img/bg-full.jpeg';
 import { reactive } from 'vue';
 
-const data = usePage().props.value.data;
+defineProps(['data']);
+
 const pelanggan = reactive({});
 </script>
 
