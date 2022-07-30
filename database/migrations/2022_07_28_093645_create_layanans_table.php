@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama', 128);
             $table->smallInteger('estimasi_waktu');
             $table->integer('harga');
+            $table->string('satuan');
             $table->timestamps();
         });
     }

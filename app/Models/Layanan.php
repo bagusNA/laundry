@@ -10,4 +10,8 @@ class Layanan extends Model
     use HasFactory;
 
     protected $table = 'tb_layanan';
+
+    protected $guarded = [
+        'id'
+    ];
 }
