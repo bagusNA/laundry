@@ -5,17 +5,18 @@ import { currencyFormat } from '../utils/currencyFormat';
 
 const props = defineProps(['bill', 'changeAction', 'deleteAction']);
 
-const subtotal = computed(() => currencyFormat(props.bill.price * props.bill.qty));
+const subtotal = computed(() => currencyFormat(props.bill.harga * props.bill.qty));
 </script>
 
 <template>
   <div class="serv-bill">
     <div class="serv-bill__logo bg-primary text-light rounded-3">
-      <Icon :icon="bill.icon" />
+      <Icon icon="ion:home" />
+      <!-- <Icon :icon="bill.icon" /> -->
     </div>
     <div class="serv-bill__content">
       <div class="serv-bill__content__name">
-        {{ bill.name }}
+        {{ bill.nama }}
         <span 
           class="serv-bill__content__remove bg-danger"
           @click="() => deleteAction(bill.id)"
@@ -45,7 +46,7 @@ const subtotal = computed(() => currencyFormat(props.bill.price * props.bill.qty
       </div>
     </div>
     <div class="serv-bill__estimate">
-      {{ bill.time }} jam
+      {{ bill.estimasi_waktu }} jam
     </div>
     <div class="serv-bill__subtotal">
       {{ subtotal }}

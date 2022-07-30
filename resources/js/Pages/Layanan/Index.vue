@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { computed } from '@vue/reactivity';
+import { usePage } from '@inertiajs/inertia-vue3';
 import { currencyFormat } from '../../utils/currencyFormat';
 
 import Navbar from '@/Components/Navbar.vue';
@@ -13,106 +14,57 @@ import bgImage from '@/assets/img/bg-full.jpeg'
 const total = ref(0);
 const totalString = computed(() => currencyFormat(total.value));
 const billList = ref([]);
-
-// Dummy data
-const serviceList = [
-  {
-    id: 1,
-    name: 'Reguler 3 Hari',
-    time: 72,
-    price: 5000,
-    icon: 'ion:home'
-  },
-  {
-    id: 2,
-    name: 'Express 1 Hari',
-    time: 24,
-    price: 7000,
-    icon: 'ion:home'
-  },
-  {
-    id: 3,
-    name: 'Express 12 Jam',
-    time: 12,
-    price: 9000,
-    icon: 'ion:home'
-  },
-  {
-    id: 4,
-    name: 'Reguler 2 Hari',
-    time: 48,
-    price: 5000,
-    icon: 'ion:home'
-  },
-  {
-    id: 5,
-    name: 'Setrika 24 jam',
-    time: 24,
-    price: 5000,
-    icon: 'ion:home'
-  },
-  {
-    id: 6,
-    name: 'Bedcover 7 hari',
-    time: 168,
-    price: 20000,
-    icon: 'ion:home'
-  },
-]
-
-function hi() {
-  console.log('hi')
-}
+const layananList = usePage().props.value.layananList;
 
 function addToBill(id) {
-  let service;
+  let layanan;
 
   if (billList.value.length) {
-    service = billList.value.find(item => item.id === id);
+    layanan = billList.value.find(item => item.id === id);
   }
 
   // Increment qty if already in list
-  if (service) {
-    const index = billList.value.indexOf(service);
+  if (layanan) {
+    const index = billList.value.indexOf(layanan);
     billList.value[index] = {
-      ...service, 
-      qty: service.qty + 1,
+      ...layanan, 
+      qty: layanan.qty + 1,
     }
-    total.value += service.price;
+    total.value += layanan.harga;
     
     return;
   }
 
-  if (!service) {
-    service = serviceList.find(item => item.id === id);
+  if (!layanan) {
+    layanan = layananList.find(item => item.id === id);
   }
   
   billList.value.push({
-    ...service,
+    ...layanan,
     qty: 1,
   });
-  total.value += service.price;
+  total.value += layanan.harga;
 }
 
 function deleteFromBill(id) {
-  const service = billList.value.find(item => item.id === id);
-  const index = billList.value.indexOf(service);
+  const layanan = billList.value.find(item => item.id === id);
+  const index = billList.value.indexOf(layanan);
 
   if (index > -1) billList.value.splice(index, 1);
-  total.value -= service.qty * service.price;
+  total.value -= layanan.qty * layanan.harga;
 }
 
 function changeQty(id, isIncrement) {
-  const service = billList.value.find(item => item.id === id);
+  const layanan = billList.value.find(item => item.id === id);
 
   if (isIncrement) {
-    service.qty++;
-    total.value += service.price;
+    layanan.qty++;
+    total.value += layanan.harga;
   }
   else {
-    if (service.qty <= 1) return;
-    service.qty--;
-    total.value -= service.price;
+    if (layanan.qty <= 1) return;
+    layanan.qty--;
+    total.value -= layanan.harga;
   }
 }
 </script>
@@ -128,11 +80,11 @@ function changeQty(id, isIncrement) {
         <Category v-for="n in 5" />
       </div>
       <div class="service-list">
-        <ServiceCard v-for="service in serviceList"
-          :name="service.name" 
-          :price="service.price"
-          :icon="service.icon"
-          :onClick="() => addToBill(service.id)"
+        <ServiceCard v-for="layanan in layananList"
+          :name="layanan.nama" 
+          :price="layanan.harga"
+          icon="ion:home"
+          :onClick="() => addToBill(layanan.id)"
         />
       </div>
     </main>
@@ -155,7 +107,7 @@ function changeQty(id, isIncrement) {
         </div>
         <div
           class="bill__next-btn bg-primary text-light"
-          @click="hi"
+          @click=""
         >
           Selanjutnya
         </div>
