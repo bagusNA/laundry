@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LayananController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LayananController::class, 'index'])
+Route::get('/', fn () => redirect()->route('layanan'))
     ->middleware('auth')
     ->name('home');
 
@@ -28,3 +28,14 @@ Route::get('/logout', fn () => redirect()->route('home'));
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
+
+Route::get('/layanan', [CheckoutController::class, 'index'])
+    ->middleware('auth')
+    ->name('layanan');
+
+Route::get('/checkout', fn () => redirect()->route('layanan'))
+    ->middleware('auth')
+    ->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'checkout'])
+    ->middleware('auth')
+    ->name('checkout');

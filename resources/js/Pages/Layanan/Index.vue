@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { computed } from '@vue/reactivity';
-import { usePage } from '@inertiajs/inertia-vue3';
+import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import { currencyFormat } from '../../utils/currencyFormat';
 
 import Navbar from '@/Components/Navbar.vue';
@@ -15,6 +15,9 @@ const total = ref(0);
 const totalString = computed(() => currencyFormat(total.value));
 const billList = ref([]);
 const layananList = usePage().props.value.layananList;
+const form = useForm({
+  billList
+});
 
 function addToBill(id) {
   let layanan;
@@ -107,7 +110,7 @@ function changeQty(id, isIncrement) {
         </div>
         <div
           class="bill__next-btn bg-primary text-light"
-          @click=""
+          @click="form.post('/checkout')"
         >
           Selanjutnya
         </div>
