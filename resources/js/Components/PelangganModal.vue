@@ -1,8 +1,12 @@
 <script setup>
-import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 
-const search = ref('');
+defineProps([
+  'pelangganList',
+  'searchQuery',
+  'searchAction'
+]);
+defineEmits(['update:searchQuery']);
 </script>
 
 <template>
@@ -35,27 +39,31 @@ const search = ref('');
 
           <div class="tab-content">
             <div class="tab-pane active" id="lama" role="tabpanel" aria-labelledby="tab-pelanggan-lama" tabindex="0">
-              <div class="input-group mb-2">
-                <input v-model="search"
-                  class="form-control" 
-                  type="text" 
-                  placeholder="Nama pelanggan" 
-                  aria-label="Nama pelanggan" 
-                  aria-describedby="button-addon2"
-                >
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-              </div>
+              <form @submit.prevent="searchAction">
+                <div class="input-group mb-2">
+                  <input 
+                    :value="searchQuery"
+                    @input="$emit('update:searchQuery', $event.target.value)"
+                    class="form-control" 
+                    type="text" 
+                    placeholder="Nama pelanggan" 
+                    aria-label="Nama pelanggan" 
+                    aria-describedby="search-button"
+                  >
+                  <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+                </div>
+              </form>
 
               <div class="card">
                 <ul class="list-group list-group-flush">
-                  <li v-for="n in 10" 
+                  <li v-for="pelanggan in pelangganList" 
                     class="list-group-item d-flex justify-content-between align-items-center"
                   >
                     <div class="d-flex flex-column flex-grow-1">
-                      Pelanggan 1
-                      <span>Jl. Jalan di Semarang, mampir membeli gorengan </span>
+                      {{ pelanggan.nama }}
+                      <span class="alamat">{{ pelanggan.alamat }}</span>
                     </div>
-                    <span class="px-3">082153979764</span>
+                    <span class="px-3">{{ pelanggan.no_hp }}</span>
                     <button class="btn btn-primary">Pilih</button>
                   </li>
                 </ul>
@@ -97,5 +105,9 @@ const search = ref('');
 .card {
   max-height: 20rem;
   overflow: auto;
+}
+
+.alamat {
+  font-size: 0.85rem;
 }
 </style>

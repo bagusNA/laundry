@@ -1,17 +1,30 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3';
+import { reactive, ref } from 'vue';
 import { Icon } from '@iconify/vue';
+import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { store } from '@/store';
 import { currencyFormat } from '../../utils/currencyFormat';
 
 import UserCard from '@/Components/UserCard.vue';
 import CheckoutDetailCard from '../../Components/layouts/CheckoutDetailCard.vue';
 import bgImage from '@/assets/img/bg-full.jpeg';
-import { reactive } from 'vue';
 import PelangganModal from '@/Components/PelangganModal.vue';
+import { computed } from '@vue/reactivity';
 
-defineProps(['data']);
+const props = defineProps(['data', 'pelangganList']);
 
 const pelanggan = reactive({});
+const pelangganList = ref(props.pelangganList);
+const pelangganSearchQuery = ref('');
+
+const searchPelanggan = useForm({
+  searchPelanggan: computed(() => pelangganSearchQuery.value)
+});
+
+const createPesanan = useForm({
+  daftarPesanan: store.cart
+});
+
 </script>
 
 <template>
@@ -57,11 +70,11 @@ const pelanggan = reactive({});
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(bill, index) in data.billList">
+              <tr v-for="(item, index) in store.cart">
                 <th scope="row">{{ index + 1 }}</th>
-                <td>{{ bill.nama }}</td>
-                <td>{{ bill.qty }} {{ bill.satuan }}</td>
-                <td>{{ currencyFormat((bill.harga * bill.qty)) }}</td>
+                <td>{{ item.nama }}</td>
+                <td>{{ item.qty }} {{ item.satuan }}</td>
+                <td>{{ currencyFormat((item.harga * item.qty)) }}</td>
               </tr>
             </tbody>
           </table>
@@ -89,9 +102,11 @@ const pelanggan = reactive({});
       </div>
     </aside>
 
-    <!-- <template v-show="modalActive"> -->
-      <PelangganModal />
-    <!-- </template> -->
+    <PelangganModal 
+      v-model:searchQuery="pelangganSearchQuery"
+      :pelangganList="pelangganList" 
+      :searchAction="() => searchPelanggan.get('/checkout', {only: ['pelangganList']})"
+    />
   </div>
 </template>
 

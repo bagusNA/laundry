@@ -33,9 +33,9 @@ Route::get('/layanan', [CheckoutController::class, 'index'])
     ->middleware('auth')
     ->name('layanan');
 
-Route::get('/checkout', fn () => redirect()->route('layanan'))
-    ->middleware('auth')
-    ->name('checkout');
-Route::post('/checkout', [CheckoutController::class, 'checkout'])
+// Route::get('/checkout', fn () => redirect()->route('layanan'))
+//     ->middleware('auth')
+//     ->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'checkout'])
     ->middleware('auth')
     ->name('checkout');

@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from '@vue/reactivity';
+import { Link } from '@inertiajs/inertia-vue3';
 import { currencyFormat } from '@/utils/currencyFormat';
 import { store } from '@/store';
 
@@ -49,12 +50,12 @@ const totalString = computed(() => currencyFormat(store.total));
         <div class="bill__total-wrapper">
           Total: <span class="bill__total">{{ totalString }}</span>
         </div>
-        <div
+        <Link
           class="bill__next-btn bg-primary text-light"
-          @click="form.post('/checkout')"
+          href="/checkout"
         >
           Selanjutnya
-        </div>
+        </Link>
       </div>
     </aside>
   </div>
@@ -134,6 +135,7 @@ const totalString = computed(() => currencyFormat(store.total));
     font-size: 1.5rem;
     text-align: center;
     transition: 100ms;
+    text-decoration: none;
 
     &:hover {
       cursor: pointer;
