@@ -18,18 +18,6 @@ class CheckoutController extends Controller
 
     public function checkout(Request $request)
     {
-        // $responseData = [
-        //     'data' => $request->all(),
-        //     'pelangganList' => Pelanggan::latest()->take(10)->get()
-        // ];
-        
-        // if ($request->has('namaPelanggan')) {
-        //     $responseData['pelangganList'] = Pelanggan::where(
-        //         'nama',
-        //         $request->input('nama_pelanggan')
-        //     )->get();
-        // }
-
         $response = [
             'pelangganList' => function () use ($request) {
                 if ($request->has('searchPelanggan')) {

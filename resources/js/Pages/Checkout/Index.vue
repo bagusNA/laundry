@@ -1,30 +1,34 @@
 <script setup>
 import { reactive, ref } from 'vue';
-import { Icon } from '@iconify/vue';
+import { computed } from '@vue/reactivity';
 import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { Icon } from '@iconify/vue';
 import { store } from '@/store';
 import { currencyFormat } from '../../utils/currencyFormat';
 
 import UserCard from '@/Components/UserCard.vue';
 import CheckoutDetailCard from '../../Components/layouts/CheckoutDetailCard.vue';
 import bgImage from '@/assets/img/bg-full.jpeg';
-import PelangganModal from '@/Components/PelangganModal.vue';
-import { computed } from '@vue/reactivity';
 
 const props = defineProps(['data', 'pelangganList']);
 
 const pelanggan = reactive({});
-const pelangganList = ref(props.pelangganList);
 const pelangganSearchQuery = ref('');
-
-const searchPelanggan = useForm({
-  searchPelanggan: computed(() => pelangganSearchQuery.value)
-});
+const pelangganList = computed(() => props.pelangganList);
 
 const createPesanan = useForm({
   daftarPesanan: store.cart
 });
+const searchPelanggan = useForm({
+  searchPelanggan: computed(() => pelangganSearchQuery.value)
+});
 
+const searchAction = () => {
+  searchPelanggan.get('/checkout', {
+    only: ['pelangganList'],
+    preserveState: true
+  })
+}
 </script>
 
 <template>
@@ -45,16 +49,84 @@ const createPesanan = useForm({
       <div class="main__content">
         <CheckoutDetailCard title="Pelanggan" icon="ion:person">
           <div class="pelanggan-wrapper">
-            <div v-if="!pelanggan.id" 
-              class="pelanggan--kosong"
-            >
-              <h6>Pilih pelanggan terlebih dahulu.</h6>
-              <button class="btn btn-success"
-                data-bs-toggle="modal" 
-                data-bs-target="#modalPelanggan"
-              >
-                Pilih pelanggan
-              </button>
+            <ul class="nav nav-pills nav-fill pb-3" id="tab-pelanggan" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link flex-center active" id="tab-pelanggan-lama" data-bs-toggle="tab" data-bs-target="#content-pelanggan-lama" type="button" role="tab" aria-controls="content-pelanggan-lama" aria-selected="true">
+                  <span class="flex-center px-2">
+                    <Icon icon="ic:baseline-history" />
+                  </span>
+                  Lama
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link flex-center" id="tab-pelanggan-baru" data-bs-toggle="tab" data-bs-target="#content-pelanggan-baru" type="button" role="tab" aria-controls="content-pelanggan-baru" aria-selected="false">
+                  <span class="flex-center px-2">
+                    <Icon icon="ion:person-add" />
+                  </span>
+                  Baru
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content pb-2">
+              <div class="tab-pane active" id="content-pelanggan-lama" role="tabpanel" aria-labelledby="tab-pelanggan-lama" tabindex="0">
+                <form @submit.prevent="searchAction">
+                  <div class="input-group mb-2">
+                    <input 
+                      v-model="pelangganSearchQuery"
+                      class="form-control" 
+                      type="text" 
+                      placeholder="Nama pelanggan" 
+                      aria-label="Nama pelanggan" 
+                      aria-describedby="search-button"
+                    >
+                    <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+                  </div>
+                </form>
+
+                <div class="card">
+                  <ul class="list-group list-group-flush">
+                    <li v-if="pelangganList.length" 
+                      v-for="pelanggan in pelangganList" 
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <div class="d-flex flex-column flex-grow-1">
+                        {{ pelanggan.nama }}
+                        <span class="alamat">{{ pelanggan.alamat }}</span>
+                      </div>
+                      <span class="px-3">{{ pelanggan.no_hp }}</span>
+                      <button class="btn btn-primary">Pilih</button>
+                    </li>
+                    <li v-else
+                      class="list-group-item d-flex justify-content-center align-items-center"
+                    >
+                      <span class="flex-center px-2">
+                        <Icon icon="ion:alert-circle" />
+                      </span>
+                      Data pelanggan tidak ditemukan!
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-pane" id="content-pelanggan-baru" role="tabpanel" aria-labelledby="tab-pelanggan-baru" tabindex="0">
+                <form @submit.prevent="">
+                  <div class="mb-3">
+                    <label for="nama-lengkap" class="form-label">Nama lengkap</label>
+                    <input type="text" class="form-control" id="nama-lengkap" placeholder="Nama lengkap">
+                  </div>
+                  <div class="mb-3">
+                    <label for="no-hp" class="form-label">No. HP</label>
+                    <input type="text" class="form-control" id="nama-lengkap" placeholder="08123456789">
+                  </div>
+                  <div class="mb-3">
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <textarea class="form-control" id="alamat" rows="3"></textarea>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-success" type="submit">Tambahkan</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </CheckoutDetailCard>
@@ -101,19 +173,16 @@ const createPesanan = useForm({
         </div>
       </div>
     </aside>
-
-    <PelangganModal 
-      v-model:searchQuery="pelangganSearchQuery"
-      :pelangganList="pelangganList" 
-      :searchAction="() => searchPelanggan.get('/checkout', {only: ['pelangganList']})"
-    />
   </div>
 </template>
 
 <style scoped lang="scss">
+$primary: #21405C;
+$secondary: #FFFFFF;
+
 .main {
   flex: 1;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1rem;
   height: 100vh;
   overflow: auto;
 
@@ -193,7 +262,6 @@ const createPesanan = useForm({
 }
 
 .pelanggan-wrapper {
-  display: flex;
   min-height: 100px;
   padding: 0.5rem;
 }
@@ -211,17 +279,30 @@ const createPesanan = useForm({
   }
 }
 
-@media only screen and (min-width: 768px) {
-  .sidebar {
-    min-width: 6rem;
-  }
-  
-  .main {
-    padding: 1.5rem 2rem;
+.card {
+  max-height: 20rem;
+  overflow: auto;
+}
 
-    .service-list {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
+// Change nav-pills color
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: $primary;
+  background-color: $secondary;
+}
+
+.nav-pills .nav-link, .nav-pills > .nav-link {
+  color: $secondary;
+}
+
+@media only screen and (min-width: 768px) {
+  .main {
+    padding: 1rem 1.25rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .main {
+    padding: 1.25rem 1.75rem;
   }
 }
 </style>
