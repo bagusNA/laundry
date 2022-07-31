@@ -2,8 +2,9 @@
 import { computed } from '@vue/reactivity';
 import { Icon } from '@iconify/vue';
 import { currencyFormat } from '../utils/currencyFormat';
+import { store } from '@/store';
 
-const props = defineProps(['bill', 'changeAction', 'deleteAction']);
+const props = defineProps(['bill']);
 
 const subtotal = computed(() => currencyFormat(props.bill.harga * props.bill.qty));
 </script>
@@ -12,14 +13,13 @@ const subtotal = computed(() => currencyFormat(props.bill.harga * props.bill.qty
   <div class="serv-bill">
     <div class="serv-bill__logo bg-primary text-light rounded-3">
       <Icon icon="ion:home" />
-      <!-- <Icon :icon="bill.icon" /> -->
     </div>
     <div class="serv-bill__content">
       <div class="serv-bill__content__name">
         {{ bill.nama }}
         <span 
           class="serv-bill__content__remove bg-danger"
-          @click="() => deleteAction(bill.id)"
+          @click="() => store.deleteItem(bill.id)"
         >
           <Icon 
             icon="ion:trash-bin" 
@@ -31,7 +31,7 @@ const subtotal = computed(() => currencyFormat(props.bill.harga * props.bill.qty
         <Icon 
           icon="ion:remove-circle" 
           class="btn-icon" 
-          @click="() => changeAction(bill.id, false)"  
+          @click="() => store.decrementLayanan(bill.id)"  
         />
         <input 
           type="text" class="form-control qty" placeholder="kg" aria-label="quantity" aria-describedby="basic-addon1"
@@ -40,7 +40,7 @@ const subtotal = computed(() => currencyFormat(props.bill.harga * props.bill.qty
         <Icon 
           icon="ion:add-circle" 
           class="btn-icon" 
-          @click="() => changeAction(bill.id, true)"  
+          @click="() => store.incrementLayanan(bill.id)"  
         />
         kg
       </div>

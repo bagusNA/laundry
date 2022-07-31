@@ -1,8 +1,7 @@
 <script setup>
-import { ref } from 'vue';
 import { computed } from '@vue/reactivity';
-import { useForm, usePage } from '@inertiajs/inertia-vue3';
-import { currencyFormat } from '../../utils/currencyFormat';
+import { currencyFormat } from '@/utils/currencyFormat';
+import { store } from '@/store';
 
 import Navbar from '@/Components/Navbar.vue';
 import Category from '@/Components/CategoryCard.vue';
@@ -11,65 +10,9 @@ import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
 import bgImage from '@/assets/img/bg-full.jpeg'
 
-const total = ref(0);
-const totalString = computed(() => currencyFormat(total.value));
-const billList = ref([]);
-const layananList = usePage().props.value.layananList;
-const form = useForm({
-  billList
-});
+defineProps(['layananList']);
 
-function addToBill(id) {
-  let layanan;
-
-  if (billList.value.length) {
-    layanan = billList.value.find(item => item.id === id);
-  }
-
-  // Increment qty if already in list
-  if (layanan) {
-    const index = billList.value.indexOf(layanan);
-    billList.value[index] = {
-      ...layanan, 
-      qty: layanan.qty + 1,
-    }
-    total.value += layanan.harga;
-    
-    return;
-  }
-
-  if (!layanan) {
-    layanan = layananList.find(item => item.id === id);
-  }
-  
-  billList.value.push({
-    ...layanan,
-    qty: 1,
-  });
-  total.value += layanan.harga;
-}
-
-function deleteFromBill(id) {
-  const layanan = billList.value.find(item => item.id === id);
-  const index = billList.value.indexOf(layanan);
-
-  if (index > -1) billList.value.splice(index, 1);
-  total.value -= layanan.qty * layanan.harga;
-}
-
-function changeQty(id, isIncrement) {
-  const layanan = billList.value.find(item => item.id === id);
-
-  if (isIncrement) {
-    layanan.qty++;
-    total.value += layanan.harga;
-  }
-  else {
-    if (layanan.qty <= 1) return;
-    layanan.qty--;
-    total.value -= layanan.harga;
-  }
-}
+const totalString = computed(() => currencyFormat(store.total));
 </script>
 
 <template>
@@ -87,7 +30,7 @@ function changeQty(id, isIncrement) {
           :name="layanan.nama" 
           :price="layanan.harga"
           icon="ion:home"
-          :onClick="() => addToBill(layanan.id)"
+          :onClick="() => store.addItem(layanan)"
         />
       </div>
     </main>
@@ -98,10 +41,8 @@ function changeQty(id, isIncrement) {
       <div class="bill bg-secondary">
         <span class="bill__title">Bill</span>
         <div class="bill__content">
-          <BillCard v-for="bill in billList" 
+          <BillCard v-for="bill in store.cart" 
             :bill="bill"
-            :deleteAction="deleteFromBill"
-            :changeAction="changeQty"
           />
         </div>
 
