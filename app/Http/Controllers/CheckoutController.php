@@ -20,8 +20,8 @@ class CheckoutController extends Controller
     {
         $response = [
             'pelangganList' => function () use ($request) {
-                if ($request->has('searchPelanggan')) {
-                    $nama = $request->input('searchPelanggan');
+                if ($request->input('formName') === 'searchPelanggan') {
+                    $nama = $request->input('query');
                     
                     return Pelanggan::where('nama', 'LIKE', "%$nama%")->get();
                 }

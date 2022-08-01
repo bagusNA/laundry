@@ -13,16 +13,16 @@ import bgImage from '@/assets/img/bg-full.jpeg';
 const props = defineProps(['data', 'pelangganList']);
 
 const pelanggan = reactive({});
-const pelangganSearchQuery = ref('');
 const pelangganList = computed(() => props.pelangganList);
 
 const createPesanan = useForm({
-  daftarPesanan: store.cart
-});
-const searchPelanggan = useForm({
-  searchPelanggan: computed(() => pelangganSearchQuery.value)
+  list: store.cart
 });
 
+const searchPelanggan = useForm({
+  formName: 'searchPelanggan',
+  query: ''
+});
 const searchAction = () => {
   searchPelanggan.get('/checkout', {
     only: ['pelangganList'],
@@ -73,7 +73,7 @@ const searchAction = () => {
                 <form @submit.prevent="searchAction">
                   <div class="input-group mb-2">
                     <input 
-                      v-model="pelangganSearchQuery"
+                      v-model="searchPelanggan.query"
                       class="form-control" 
                       type="text" 
                       placeholder="Nama pelanggan" 
