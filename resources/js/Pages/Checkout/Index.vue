@@ -12,12 +12,17 @@ import bgImage from '@/assets/img/bg-full.jpeg';
 
 const props = defineProps(['data', 'pelangganList', 'pelanggan']);
 
-const pelanggan = computed(() => props.pelanggan);
+const createdPelanggan = computed(() => props.pelanggan);
+const pelanggan = ref(createdPelanggan.value ?? null);
 const pelangganList = computed(() => props.pelangganList);
 
 const createPesanan = useForm({
   list: store.cart
 });
+
+const selectPelanggan = (dataPelanggan) => {
+  pelanggan.value = dataPelanggan;
+};
 
 const searchPelanggan = useForm({
   formName: 'searchPelanggan',
@@ -62,97 +67,121 @@ const createAction = () => {
       <div class="main__content">
         <CheckoutDetailCard title="Pelanggan" icon="ion:person">
           <div class="pelanggan-wrapper">
-            <ul class="nav nav-pills nav-fill pb-3" id="tab-pelanggan" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link flex-center active" id="tab-pelanggan-lama" data-bs-toggle="tab" data-bs-target="#content-pelanggan-lama" type="button" role="tab" aria-controls="content-pelanggan-lama" aria-selected="true">
-                  <span class="flex-center px-2">
-                    <Icon icon="ic:baseline-history" />
-                  </span>
-                  Lama
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link flex-center" id="tab-pelanggan-baru" data-bs-toggle="tab" data-bs-target="#content-pelanggan-baru" type="button" role="tab" aria-controls="content-pelanggan-baru" aria-selected="false">
-                  <span class="flex-center px-2">
-                    <Icon icon="ion:person-add" />
-                  </span>
-                  Baru
-                </button>
-              </li>
-            </ul>
+            <template v-if="!pelanggan">
+              <ul class="nav nav-pills nav-fill pb-3" id="tab-pelanggan" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link flex-center active" id="tab-pelanggan-lama" data-bs-toggle="tab" data-bs-target="#content-pelanggan-lama" type="button" role="tab" aria-controls="content-pelanggan-lama" aria-selected="true">
+                    <span class="flex-center px-2">
+                      <Icon icon="ic:baseline-history" />
+                    </span>
+                    Lama
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link flex-center" id="tab-pelanggan-baru" data-bs-toggle="tab" data-bs-target="#content-pelanggan-baru" type="button" role="tab" aria-controls="content-pelanggan-baru" aria-selected="false">
+                    <span class="flex-center px-2">
+                      <Icon icon="ion:person-add" />
+                    </span>
+                    Baru
+                  </button>
+                </li>
+              </ul>
 
-            <div class="tab-content pb-2">
-              <div class="tab-pane active" id="content-pelanggan-lama" role="tabpanel" aria-labelledby="tab-pelanggan-lama" tabindex="0">
-                <form @submit.prevent="searchAction">
-                  <div class="input-group mb-2">
-                    <input 
-                      v-model="searchPelanggan.query"
-                      class="form-control" 
-                      type="text" 
-                      placeholder="Nama pelanggan" 
-                      aria-label="Nama pelanggan" 
-                      aria-describedby="search-button"
-                    >
-                    <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+              <div class="tab-content pb-2">
+                <div class="tab-pane active" id="content-pelanggan-lama" role="tabpanel" aria-labelledby="tab-pelanggan-lama" tabindex="0">
+                  <form @submit.prevent="searchAction">
+                    <div class="input-group mb-2">
+                      <input 
+                        v-model="searchPelanggan.query"
+                        class="form-control" 
+                        type="text" 
+                        placeholder="Nama pelanggan" 
+                        aria-label="Nama pelanggan" 
+                        aria-describedby="search-button"
+                      >
+                      <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+                    </div>
+                  </form>
+
+                  <div class="card">
+                    <ul class="list-group list-group-flush">
+                      <li v-if="pelangganList.length" 
+                        v-for="pelanggan in pelangganList" 
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <div class="d-flex flex-column flex-grow-1">
+                          {{ pelanggan.nama }}
+                          <span class="alamat">{{ pelanggan.alamat }}</span>
+                        </div>
+                        <span class="px-3">{{ pelanggan.no_hp }}</span>
+                        <button class="btn btn-primary"
+                          @click="() => selectPelanggan(pelanggan)"
+                        >
+                          Pilih
+                        </button>
+                      </li>
+                      <li v-else
+                        class="list-group-item d-flex justify-content-center align-items-center"
+                      >
+                        <span class="flex-center px-2">
+                          <Icon icon="ion:alert-circle" />
+                        </span>
+                        Data pelanggan tidak ditemukan!
+                      </li>
+                    </ul>
                   </div>
-                </form>
-
-                <div class="card">
-                  <ul class="list-group list-group-flush">
-                    <li v-if="pelangganList.length" 
-                      v-for="pelanggan in pelangganList" 
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      <div class="d-flex flex-column flex-grow-1">
-                        {{ pelanggan.nama }}
-                        <span class="alamat">{{ pelanggan.alamat }}</span>
-                      </div>
-                      <span class="px-3">{{ pelanggan.no_hp }}</span>
-                      <button class="btn btn-primary">Pilih</button>
-                    </li>
-                    <li v-else
-                      class="list-group-item d-flex justify-content-center align-items-center"
-                    >
-                      <span class="flex-center px-2">
-                        <Icon icon="ion:alert-circle" />
-                      </span>
-                      Data pelanggan tidak ditemukan!
-                    </li>
-                  </ul>
+                </div>
+                <div class="tab-pane" id="content-pelanggan-baru" role="tabpanel" aria-labelledby="tab-pelanggan-baru" tabindex="0">
+                  <form @submit.prevent="createAction">
+                    <div class="mb-3">
+                      <label for="nama-lengkap" class="form-label">Nama lengkap</label>
+                      <input v-model="createPelanggan.nama"
+                        type="text" 
+                        class="form-control"
+                        id="nama-lengkap" 
+                        placeholder="Nama lengkap"
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <label for="no-hp" class="form-label">No. HP</label>
+                      <input v-model="createPelanggan.no_hp"
+                        type="text" 
+                        class="form-control" 
+                        id="nama-lengkap" 
+                        placeholder="08123456789">
+                    </div>
+                    <div class="mb-3">
+                      <label for="alamat" class="form-label">Alamat</label>
+                      <textarea v-model="createPelanggan.alamat"
+                        class="form-control" 
+                        id="alamat" 
+                        rows="3"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button class="btn btn-success" type="submit">Tambahkan</button>
+                    </div>
+                  </form>
                 </div>
               </div>
-              <div class="tab-pane" id="content-pelanggan-baru" role="tabpanel" aria-labelledby="tab-pelanggan-baru" tabindex="0">
-                <form @submit.prevent="createAction">
-                  <div class="mb-3">
-                    <label for="nama-lengkap" class="form-label">Nama lengkap</label>
-                    <input v-model="createPelanggan.nama"
-                      type="text" 
-                      class="form-control"
-                      id="nama-lengkap" 
-                      placeholder="Nama lengkap"
-                    >
-                  </div>
-                  <div class="mb-3">
-                    <label for="no-hp" class="form-label">No. HP</label>
-                    <input v-model="createPelanggan.no_hp"
-                      type="text" 
-                      class="form-control" 
-                      id="nama-lengkap" 
-                      placeholder="08123456789">
-                  </div>
-                  <div class="mb-3">
-                    <label for="alamat" class="form-label">Alamat</label>
-                    <textarea v-model="createPelanggan.alamat"
-                      class="form-control" 
-                      id="alamat" 
-                      rows="3"></textarea>
-                  </div>
-                  <div class="d-flex justify-content-end">
-                    <button class="btn btn-success" type="submit">Tambahkan</button>
-                  </div>
-                </form>
+            </template>
+
+            <template v-else>
+              <div class="d-flex justify-content-center pb-3">
+                <span class="flex-grow-1 d-flex flex-column justify-content-center  gap-2">
+                  <h2>{{ pelanggan.nama }}</h2>
+                  <h5>{{ pelanggan.no_hp }}</h5>
+                </span>
+                <p class="w-50 flex-center">{{ pelanggan.alamat }}</p>
               </div>
-            </div>
+
+              <button 
+                type="button" 
+                class="btn btn-success mb-2"
+                @click="() => pelanggan = null"
+              >
+                Ubah
+              </button>
+            </template>
           </div>
         </CheckoutDetailCard>
 
@@ -185,12 +214,6 @@ const createAction = () => {
       <div class="bill bg-secondary">
         <span class="bill__title">Summary</span>
         <div class="bill__content">
-          <div v-if="pelanggan">
-            <p>{{ pelanggan.id }}</p>
-            <p>{{ pelanggan.nama }}</p>
-            <p>{{ pelanggan.no_hp }}</p>
-            <p>{{ pelanggan.alamat }}</p>
-          </div>
         </div>
 
         <!-- <div class="bill__total-wrapper">
@@ -293,7 +316,7 @@ $secondary: #FFFFFF;
 }
 
 .pelanggan-wrapper {
-  min-height: 100px;
+  // min-height: 5rem;
   padding: 0.5rem;
 }
 
