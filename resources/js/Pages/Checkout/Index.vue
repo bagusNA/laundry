@@ -10,9 +10,9 @@ import UserCard from '@/Components/UserCard.vue';
 import CheckoutDetailCard from '../../Components/layouts/CheckoutDetailCard.vue';
 import bgImage from '@/assets/img/bg-full.jpeg';
 
-const props = defineProps(['data', 'pelangganList']);
+const props = defineProps(['data', 'pelangganList', 'pelanggan']);
 
-const pelanggan = reactive({});
+const pelanggan = computed(() => props.pelanggan);
 const pelangganList = computed(() => props.pelangganList);
 
 const createPesanan = useForm({
@@ -27,7 +27,20 @@ const searchAction = () => {
   searchPelanggan.get('/checkout', {
     only: ['pelangganList'],
     preserveState: true
-  })
+  });
+};
+
+const createPelanggan = useForm({
+  nama: null,
+  no_hp: null,
+  alamat: null,
+});
+const createAction = () => {
+  createPelanggan.post('/pelanggan/create', {
+    only: ['pelanggan'],
+    preserveState: true,
+    resetOnSuccess: false
+  });
 }
 </script>
 
@@ -109,18 +122,30 @@ const searchAction = () => {
                 </div>
               </div>
               <div class="tab-pane" id="content-pelanggan-baru" role="tabpanel" aria-labelledby="tab-pelanggan-baru" tabindex="0">
-                <form @submit.prevent="">
+                <form @submit.prevent="createAction">
                   <div class="mb-3">
                     <label for="nama-lengkap" class="form-label">Nama lengkap</label>
-                    <input type="text" class="form-control" id="nama-lengkap" placeholder="Nama lengkap">
+                    <input v-model="createPelanggan.nama"
+                      type="text" 
+                      class="form-control"
+                      id="nama-lengkap" 
+                      placeholder="Nama lengkap"
+                    >
                   </div>
                   <div class="mb-3">
                     <label for="no-hp" class="form-label">No. HP</label>
-                    <input type="text" class="form-control" id="nama-lengkap" placeholder="08123456789">
+                    <input v-model="createPelanggan.no_hp"
+                      type="text" 
+                      class="form-control" 
+                      id="nama-lengkap" 
+                      placeholder="08123456789">
                   </div>
                   <div class="mb-3">
                     <label for="alamat" class="form-label">Alamat</label>
-                    <textarea class="form-control" id="alamat" rows="3"></textarea>
+                    <textarea v-model="createPelanggan.alamat"
+                      class="form-control" 
+                      id="alamat" 
+                      rows="3"></textarea>
                   </div>
                   <div class="d-flex justify-content-end">
                     <button class="btn btn-success" type="submit">Tambahkan</button>
@@ -160,6 +185,12 @@ const searchAction = () => {
       <div class="bill bg-secondary">
         <span class="bill__title">Summary</span>
         <div class="bill__content">
+          <div v-if="pelanggan">
+            <p>{{ pelanggan.id }}</p>
+            <p>{{ pelanggan.nama }}</p>
+            <p>{{ pelanggan.no_hp }}</p>
+            <p>{{ pelanggan.alamat }}</p>
+          </div>
         </div>
 
         <!-- <div class="bill__total-wrapper">

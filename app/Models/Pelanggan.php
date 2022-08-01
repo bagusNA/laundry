@@ -10,4 +10,6 @@ class Pelanggan extends Model
     use HasFactory;
 
     protected $table = 'tb_pelanggan';
+
+    protected $guarded = ['id'];
 }

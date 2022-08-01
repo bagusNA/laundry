@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PelangganController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +40,8 @@ Route::get('/layanan', [CheckoutController::class, 'index'])
 Route::get('/checkout', [CheckoutController::class, 'checkout'])
     ->middleware('auth')
     ->name('checkout');
+
+// Pelanggan
+Route::post('/pelanggan/create', [PelangganController::class, 'create'])
+    ->middleware('auth')
+    ->name('pelanggan');

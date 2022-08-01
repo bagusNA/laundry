@@ -23,10 +23,20 @@ class CheckoutController extends Controller
                 if ($request->input('formName') === 'searchPelanggan') {
                     $nama = $request->input('query');
                     
-                    return Pelanggan::where('nama', 'LIKE', "%$nama%")->get();
+                    return Pelanggan::where('nama', 'LIKE', "%$nama%")
+                                        ->take(15)
+                                        ->get();
                 }
 
-                return Pelanggan::latest()->take(10)->get();
+                return Pelanggan::latest()->take(15)->get();
+            },
+            'pelanggan' => function () use ($request) {
+                $session = $request->session();
+
+                if ($session->has('pelanggan')) {
+                    return $session->get('pelanggan');
+                }
+                return null;
             }
         ];
 
