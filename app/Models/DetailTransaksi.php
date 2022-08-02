@@ -10,4 +10,16 @@ class DetailTransaksi extends Model
     use HasFactory;
 
     protected $table = 'tb_detail_transaksi';
+
+    protected $guarded = ['id'];
+
+    public function transaksi()
+    {
+        return $this->belongsTo(Transaksi::class, 'id_transaksi');
+    }
+
+    public function jenis()
+    {
+        return $this->hasOne(Layanan::class, 'id_layanan');
+    }
 }

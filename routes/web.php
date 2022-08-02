@@ -34,12 +34,13 @@ Route::get('/layanan', [CheckoutController::class, 'index'])
     ->middleware('auth')
     ->name('layanan');
 
-// Route::get('/checkout', fn () => redirect()->route('layanan'))
-//     ->middleware('auth')
-//     ->name('checkout');
 Route::get('/checkout', [CheckoutController::class, 'checkout'])
     ->middleware('auth')
     ->name('checkout');
+
+Route::post('/checkout/create', [CheckoutController::class, 'create'])
+    ->middleware('auth')
+    ->name('checkout/create');
 
 // Pelanggan
 Route::post('/pelanggan/create', [PelangganController::class, 'create'])

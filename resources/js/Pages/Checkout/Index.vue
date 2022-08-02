@@ -1,13 +1,13 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import { computed } from '@vue/reactivity';
 import { Link, useForm } from '@inertiajs/inertia-vue3';
 import { Icon } from '@iconify/vue';
 import { store } from '@/store';
-import { currencyFormat } from '../../utils/currencyFormat';
+import { currencyFormat } from '@/utils/currencyFormat';
 
 import UserCard from '@/Components/UserCard.vue';
-import CheckoutDetailCard from '../../Components/layouts/CheckoutDetailCard.vue';
+import CheckoutDetailCard from '@/Components/layouts/CheckoutDetailCard.vue';
 import bgImage from '@/assets/img/bg-full.jpeg';
 
 const props = defineProps(['data', 'pelangganList', 'pelanggan']);
@@ -17,8 +17,16 @@ const pelanggan = ref(createdPelanggan.value ?? null);
 const pelangganList = computed(() => props.pelangganList);
 
 const createPesanan = useForm({
-  list: store.cart
+  list: store.cart,
+  pelanggan: computed(() => pelanggan.value)
 });
+const createPesananAction = () => {
+  createPesanan.post('/checkout/create', {
+    preserveState: true,
+    resetOnSuccess: false
+  })
+}
+
 
 const selectPelanggan = (dataPelanggan) => {
   pelanggan.value = dataPelanggan;
@@ -221,9 +229,9 @@ const createAction = () => {
         </div> -->
         <div
           class="bill__next-btn bg-primary text-light"
-          @click=""
+          @click="createPesananAction"
         >
-          Simpan
+          Simpan Struk
         </div>
       </div>
     </aside>

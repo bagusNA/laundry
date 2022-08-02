@@ -12,4 +12,9 @@ class Pelanggan extends Model
     protected $table = 'tb_pelanggan';
 
     protected $guarded = ['id'];
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

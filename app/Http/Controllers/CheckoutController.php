@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailTransaksi;
 use App\Models\Layanan;
 use App\Models\Pelanggan;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CheckoutController extends Controller
@@ -41,5 +44,46 @@ class CheckoutController extends Controller
         ];
 
         return Inertia::render('Checkout/Index', $response);
+    }
+
+    public function create(Request $request)
+    {
+        $data = $request->validate([
+            'list.*.id' => 'required',
+            'list.*.qty' => 'required',
+            'list.*.subtotal' => 'required',
+            'pelanggan.id' => 'required',
+            'pelanggan.nama' => 'required',
+            'pelanggan.no_hp' => 'required',
+            'pelanggan.alamat' => 'required',
+        ]);
+
+        $totalHarga = 0;
+        $totalBerat = 0;
+        $detailsValue = [];
+        
+        foreach ($data['list'] as $list) {
+            $totalHarga += $list['subtotal'];
+            $totalBerat += $list['qty'];
+
+            $detailsValue[] = new DetailTransaksi([
+                'id_layanan' => $list['id'],
+                'berat' => $list['qty'],
+                'subtotal' => $list['subtotal'],
+                'status_diambil' => false
+            ]);
+        };
+
+        $transaksiValue = [
+            'id_pelanggan' => $data['pelanggan']['id'],
+            'id_karyawan' => Auth::user()->id,
+            'total_berat' => $totalBerat,
+            'total_harga' => $totalHarga,
+        ];
+
+        $transaksi = Transaksi::create($transaksiValue);
+        $transaksi->details()->saveMany($detailsValue);
+
+        return redirect('/');
     }
 }
