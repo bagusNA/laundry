@@ -1,6 +1,8 @@
 <script setup>
 import bgImage from '@/assets/img/bg-full.jpeg';
-import Navbar from '../../Components/Navbar.vue';
+import Navbar from '@/Components/Navbar.vue';
+
+defineProps(['daftarTransaksi']);
 </script>
 
 <template>
@@ -11,8 +13,6 @@ import Navbar from '../../Components/Navbar.vue';
     <div class="main">
       <h2 class="title">Daftar Transaksi</h2>
       <div class="p-2 rounded bg-primary text-light">
-        <!-- <button type="button" class="btn btn-secondary">Uh</button> -->
-
         <table class="table text-light">
           <thead>
             <tr>
@@ -25,11 +25,11 @@ import Navbar from '../../Components/Navbar.vue';
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>Otto</td>
+            <tr v-for="(transaksi, index) in daftarTransaksi">
+              <th scope="row">{{ ++index }}</th>
+              <td>{{ transaksi.id_pelanggan }}</td>
+              <td>{{ transaksi.total_harga }}</td>
+              <td>{{ transaksi.created_at }}</td>
               <td>Otto</td>
               <td>
                 <button type="button" class="btn btn-success">Selesai</button>
