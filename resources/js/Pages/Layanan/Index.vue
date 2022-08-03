@@ -9,7 +9,7 @@ import Category from '@/Components/CategoryCard.vue';
 import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
-import bgImage from '@/assets/img/bg-full.jpeg'
+import bgImage from '@/assets/img/bg-full.jpeg';
 
 defineProps(['layananList']);
 
@@ -62,28 +62,17 @@ const totalString = computed(() => currencyFormat(store.total));
 </template>
 
 <style scoped lang="scss">
-.main {
-  flex: 1;
-  padding: 1rem 1.5rem;
-  height: 100vh;
-  overflow: auto;
+.category-list {
+  display: flex;
+  gap: 0 10px;
+  padding-bottom: 1.5rem;
+}
 
-  .title {
-    padding-bottom: 1.5rem;
-  }
-
-  .category-list {
-    display: flex;
-    gap: 0 10px;
-    padding-bottom: 1.5rem;
-  }
-
-  .service-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    justify-content: space-between;
-    gap: 15px;
-  }
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  justify-content: space-between;
+  gap: 15px;
 }
 
 .side-content {
@@ -144,11 +133,7 @@ const totalString = computed(() => currencyFormat(store.total));
   }
 }
 
-@media only screen and (min-width: 768px) {
-  .sidebar {
-    min-width: 6rem;
-  }
-  
+@media only screen and (min-width: 768px) {  
   .main {
     padding: 1.5rem 2rem;
 
