@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onUpdated, ref } from 'vue';
 import { computed } from '@vue/reactivity';
 import { Link, useForm } from '@inertiajs/inertia-vue3';
 import { Icon } from '@iconify/vue';
@@ -24,9 +24,8 @@ const createPesananAction = () => {
   createPesanan.post('/checkout/create', {
     preserveState: true,
     resetOnSuccess: false
-  })
+  });
 }
-
 
 const selectPelanggan = (dataPelanggan) => {
   pelanggan.value = dataPelanggan;
@@ -38,7 +37,7 @@ const searchPelanggan = useForm({
 });
 const searchAction = () => {
   searchPelanggan.get('/checkout', {
-    only: ['pelangganList'],
+    only: ['pelanggan', 'pelangganList'],
     preserveState: true
   });
 };
@@ -50,11 +49,16 @@ const createPelanggan = useForm({
 });
 const createAction = () => {
   createPelanggan.post('/pelanggan/create', {
-    only: ['pelanggan'],
+    only: ['pelanggan', 'pelangganList'],
     preserveState: true,
     resetOnSuccess: false
   });
 }
+
+onUpdated(() => {
+  if (!createdPelanggan) return;
+  pelanggan.value = createdPelanggan.value ?? null;
+});
 </script>
 
 <template>
