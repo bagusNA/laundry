@@ -1,38 +1,71 @@
 <script setup>
-import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { computed } from '@vue/reactivity';
+import { Link, useForm, usePage } from '@inertiajs/inertia-vue3';
 import { Icon } from '@iconify/vue';
 import logo from '@/assets/img/logo.png';
+
+const route = computed(() => usePage().props.value.currentRoute);
 </script>
 
 <template>
   <aside class="sidebar d-flex flex-column flex-shrink-0 bg-secondary">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
       <li class="nav-item">
-        <Link href="#" class="d-block py-3 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
+        <Link href="#"
+          class="d-block py-3 link-dark text-decoration-none" 
+          title="Icon-only" 
+          data-bs-toggle="tooltip" 
+          data-bs-placement="right"
+        >
           <img :src="logo" alt="Logo" class="nav-logo" width="65">
           <span class="visually-hidden">Icon-only</span>
         </Link>
       </li>
       <li class="nav-item">
-        <Link href="/" class="nav-link py-3 active rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+        <Link href="/" 
+          :class="{'active': route === 'home'}"
+          class="nav-link py-3 rounded-0" 
+          aria-current="page" 
+          title="Home" 
+          data-bs-toggle="tooltip" 
+          data-bs-placement="right"
+        >
           <Icon icon="ion:home" class="nav-icon" />
           Home
         </Link>
       </li>
       <li class="nav-item">
-        <Link href="/layanan" class="nav-link py-3 rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+        <Link href="/layanan" 
+          :class="{'active': route === 'layanan'}"
+          class="nav-link py-3 rounded-0" 
+          title="Dashboard" 
+          data-bs-toggle="tooltip" 
+          data-bs-placement="right"
+        >
           <Icon icon="ion:cart" class="nav-icon" />
           Layanan
         </Link>
       </li>
       <li class="nav-item">
-        <Link href="/transaksi" class="nav-link py-3 rounded-0" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+        <Link href="/transaksi" 
+          :class="{'active': route === 'transaksi'}"
+          class="nav-link py-3 rounded-0" 
+          title="Orders" 
+          data-bs-toggle="tooltip" 
+          data-bs-placement="right"
+        >
           <Icon icon="ion:list-circle" class="nav-icon" />
           Transaksi
         </Link>
       </li>
       <li class="nav-item">
-        <Link href="/pelanggan" class="nav-link py-3 rounded-0" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
+        <Link href="/pelanggan" 
+          :class="{'active': route === 'pelanggan'}"
+          class="nav-link py-3 rounded-0" 
+          title="Products" 
+          data-bs-toggle="tooltip" 
+          data-bs-placement="right"
+        >
           <Icon icon="ion:people" class="nav-icon" />
           Pelanggan
         </Link>
