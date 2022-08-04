@@ -1,5 +1,6 @@
 <script setup>
 import { currencyFormat } from '@/utils/currencyFormat.ts';
+import { dateFormat } from '@/utils/dateFormat.ts';
 
 import bgImage from '@/assets/img/bg-full.jpeg';
 import Navbar from '@/Components/Navbar.vue';
@@ -30,7 +31,7 @@ defineProps(['semuaTransaksi']);
             <tr v-for="(transaksi, index) in semuaTransaksi">
               <th scope="row">{{ semuaTransaksi.length - index }}</th>
               <td>{{ transaksi.pelanggan.nama }}</td>
-              <td>{{ transaksi.waktu_dibuat }}</td>
+              <td>{{ dateFormat(transaksi.waktu_dibuat ) }}</td>
               <td>{{ currencyFormat(transaksi.total_harga) }}</td>
               <td>{{ transaksi.status_selesai ? 'Selesai' : 'Dalam Proses' }}</td>
               <td>
