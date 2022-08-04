@@ -9,6 +9,9 @@ class Transaksi extends Model
 {
     use HasFactory;
 
+    const CREATED_AT = 'waktu_dibuat';
+    const UPDATED_AT = 'waktu_diupdate';
+
     protected $table = 'tb_transaksi';
 
     protected $guarded = [

@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            LayananSeeder::class
+            LayananSeeder::class,
+            PelangganSeeder::class,
+            KaryawanSeeder::class
         ]);
     }
 }

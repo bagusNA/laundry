@@ -20,7 +20,9 @@ return new class extends Migration
             $table->smallInteger('total_berat');
             $table->integer('total_harga');
             $table->timestamp('waktu_diambil');
-            $table->timestamps();
+            $table->boolean('status_selesai')->default(false);
+            $table->timestamp('waktu_dibuat')->nullable()->useCurrent();
+            $table->timestamp('waktu_diupdate')->nullable()->useCurrentOnUpdate();
 
             $table->foreign('id_pelanggan')->references('id')->on('tb_pelanggan');
             $table->foreign('id_karyawan')->references('id')->on('tb_karyawan');

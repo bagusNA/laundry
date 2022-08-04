@@ -10,10 +10,14 @@ class TransaksiController extends Controller
 {
     public function index()
     {
-        $daftarTransaksi = Transaksi::all();
+        $transaction = Transaksi::with('pelanggan:id,nama')->latest();
+        
+        // TO DO: Pagination
+        $semuaTransaksi = $transaction->take(10)->get();
+        // $activeTransaction = $transaction->where('status_selesai', true);
 
         return Inertia::render('Transaksi/Index', [
-            'daftarTransaksi' => $daftarTransaksi
+            'semuaTransaksi' => $semuaTransaksi,
         ]);
     }
 }
