@@ -2,7 +2,7 @@
 import { usePage } from '@inertiajs/inertia-vue3';
 
 const user = usePage().props.value.auth.user;
-const date = new Date;
+// const date = new Date;
 </script>
 
 <template>
@@ -12,9 +12,9 @@ const date = new Date;
       <span class="user__position">{{ user.posisi_kerja }}</span>
     </div>
 
-    <div class="flex-center fs-4 px-3">
+    <!-- <div class="flex-center fs-4 px-3">
       {{ `${date.getHours()}:${date.getMinutes()}` }}
-    </div>
+    </div> -->
   </div>
 </template>
 
