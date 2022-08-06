@@ -18,8 +18,8 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('/', fn () => redirect()->route('layanan'))
-Route::get('/', fn () => Inertia::render('Home/Index'))
+Route::get('/', fn () => redirect()->route('layanan'))
+// Route::get('/', fn () => Inertia::render('Home/Index'))
     ->middleware('auth')
     ->name('home');
 
@@ -50,6 +50,10 @@ Route::get('/transaksi', [TransaksiController::class, 'index'])
     ->name('transaksi');
 
 // Pelanggan
-Route::post('/pelanggan/create', [PelangganController::class, 'create'])
+Route::get('/pelanggan', [PelangganController::class, 'index'])
     ->middleware('auth')
     ->name('pelanggan');
+
+Route::post('/pelanggan/create', [PelangganController::class, 'create'])
+    ->middleware('auth')
+    ->name('pelanggan/create');
