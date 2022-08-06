@@ -2,6 +2,7 @@
 import { usePage } from '@inertiajs/inertia-vue3';
 
 const user = usePage().props.value.auth.user;
+const date = new Date;
 </script>
 
 <template>
@@ -9,6 +10,10 @@ const user = usePage().props.value.auth.user;
     <div class="d-flex flex-column p-2">
       <span class="user__name">{{ user.nama }}</span>
       <span class="user__position">{{ user.posisi_kerja }}</span>
+    </div>
+
+    <div class="flex-center fs-4 px-3">
+      {{ `${date.getHours()}:${date.getMinutes()}` }}
     </div>
   </div>
 </template>
