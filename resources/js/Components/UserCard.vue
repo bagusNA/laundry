@@ -1,20 +1,15 @@
 <script setup>
-defineProps(['name', 'position', 'picture']);
+import { usePage } from '@inertiajs/inertia-vue3';
+
+const user = usePage().props.value.auth.user;
 </script>
 
 <template>
   <div class="user d-flex justify-content-between bg-primary text-light rounded-3">
     <div class="d-flex flex-column p-2">
-      <span class="user__name">{{ name }}</span>
-      <span class="user__position">{{ position }}</span>
+      <span class="user__name">{{ user.nama }}</span>
+      <span class="user__position">{{ user.posisi_kerja }}</span>
     </div>
-    <!-- <div class="d-flex justify-content-center align-items-center rounded-3"> -->
-      <img 
-        :src="picture ?? 'https://via.placeholder.com/50'" 
-        :alt="`${name} Profile Picture`"
-        class="user__picture"
-      >
-    <!-- </div> -->
   </div>
 </template>
 
@@ -29,10 +24,6 @@ defineProps(['name', 'position', 'picture']);
 
   &__position {
     font-size: 0.75rem;
-  }
-
-  &__picture {
-    
   }
 }
 </style>
