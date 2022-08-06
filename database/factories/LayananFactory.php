@@ -20,7 +20,7 @@ class LayananFactory extends Factory
             'nama' => fake()->words(2, true),
             'estimasi_waktu' => fake()->randomNumber(2),
             'harga' => fake()->randomNumber(4),
-            'satuan' => 'kg'
+            'id_jenis_layanan' => fake()->randomElement([1, 2, 3, 4, 5])
         ];
     }
 }

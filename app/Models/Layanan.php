@@ -14,4 +14,9 @@ class Layanan extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function jenis()
+    {
+        return $this->belongsTo(JenisLayanan::class, 'id_jenis_layanan');
+    }
 }
