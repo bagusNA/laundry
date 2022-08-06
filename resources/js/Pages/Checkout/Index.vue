@@ -1,6 +1,7 @@
 <script setup>
 import { onUpdated, ref } from 'vue';
 import { computed } from '@vue/reactivity';
+import { Inertia } from '@inertiajs/inertia';
 import { Link, useForm } from '@inertiajs/inertia-vue3';
 import { Icon } from '@iconify/vue';
 import { store } from '@/store';
@@ -24,6 +25,10 @@ const createPesananAction = () => {
   createPesanan.post('/checkout/create', {
     preserveState: true,
     resetOnSuccess: false
+  });
+
+  Inertia.visit('/', {
+    onFinish: () => store.clearCart()
   });
 }
 

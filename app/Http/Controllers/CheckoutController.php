@@ -86,6 +86,6 @@ class CheckoutController extends Controller
         $transaksi = Transaksi::create($transaksiValue);
         $transaksi->details()->saveMany($detailsValue);
 
-        return redirect('/');
+        return back()->with('success', 'Transaksi berhasil disimpan!');
     }
 }

@@ -53,5 +53,10 @@ export const store = reactive({
     if (item.qty <= 1) return;
     item.qty--;
     this.total -= item.harga;
+  },
+
+  clearCart() {
+    this.cart = [];
+    this.total = 0;
   }
 })
