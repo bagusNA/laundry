@@ -5,13 +5,13 @@ import { currencyFormat } from '@/utils/currencyFormat';
 import { store } from '@/store';
 
 import Navbar from '@/Components/Navbar.vue';
-import Category from '@/Components/CategoryCard.vue';
+import CategoryCard from '@/Components/CategoryCard.vue';
 import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
 import bgImage from '@/assets/img/bg-full.jpeg';
 
-defineProps(['layananList']);
+defineProps(['layananList', 'kategoriList']);
 
 const totalString = computed(() => currencyFormat(store.total));
 </script>
@@ -24,7 +24,10 @@ const totalString = computed(() => currencyFormat(store.total));
     <main class="main">
       <h2 class="title">Daftar Layanan</h2>
       <div class="category-list">
-        <Category v-for="n in 5" />
+        <CategoryCard name="Semua" icon="ion:albums" />
+        <CategoryCard v-for="kategori in kategoriList"
+          :name="kategori.nama_jenis"  
+        />
       </div>
       <div class="service-list">
         <ServiceCard v-for="layanan in layananList"

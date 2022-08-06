@@ -1,16 +1,17 @@
 <script setup>
 import { Icon } from '@iconify/vue';
+
+defineProps(['name', 'icon']);
 </script>
 
 <template>
-  <a 
+  <a href="#"
     class="category rounded bg-secondary text-center text-decoration-none"
-    href="#"
   >
     <span class="category__logo">
-      <Icon icon="ion:home" />
+      <Icon :icon="icon ?? 'ion:home'" />
     </span>
-    <p class="category__title">Category</p>
+    <p class="category__title">{{ name }}</p>
   </a>
 </template>
 
@@ -21,6 +22,7 @@ import { Icon } from '@iconify/vue';
   align-items: center;
   justify-content: space-between;
   font-size: 1rem;
+  width: 7.5rem;
   padding: 1rem;
   transition: 100ms;
 

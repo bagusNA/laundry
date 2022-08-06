@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailTransaksi;
+use App\Models\JenisLayanan;
 use App\Models\Layanan;
 use App\Models\Pelanggan;
 use App\Models\Transaksi;
@@ -15,7 +16,8 @@ class CheckoutController extends Controller
     public function index()
     {
         return Inertia::render('Layanan/Index', [
-            'layananList' => Layanan::all()
+            'layananList' => Layanan::with('jenis')->get(),
+            'kategoriList' => JenisLayanan::all()
         ]);
     }
 
