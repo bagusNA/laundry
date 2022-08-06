@@ -8,7 +8,7 @@ const route = computed(() => usePage().props.value.currentRoute);
 </script>
 
 <template>
-  <aside class="sidebar d-flex flex-column flex-shrink-0 bg-secondary">
+  <nav class="sidebar d-flex flex-column flex-shrink-0 bg-secondary">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
       <li class="nav-item">
         <Link href="#"
@@ -82,7 +82,7 @@ const route = computed(() => usePage().props.value.currentRoute);
       <Icon icon="ion:log-out" class="nav-icon" />
       Log Out
     </a>
-  </aside>
+  </nav>
 </template>
 
 <style scoped lang="scss">

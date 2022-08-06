@@ -5,6 +5,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => redirect()->route('layanan'))
+// Route::get('/', fn () => redirect()->route('layanan'))
+Route::get('/', fn () => Inertia::render('Home/Index'))
     ->middleware('auth')
     ->name('home');
 
