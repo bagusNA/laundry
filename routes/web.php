@@ -45,9 +45,14 @@ Route::post('/checkout/create', [CheckoutController::class, 'create'])
     ->middleware('auth')
     ->name('checkout/create');
 
+// Transaksi
 Route::get('/transaksi', [TransaksiController::class, 'index'])
     ->middleware('auth')
     ->name('transaksi');
+
+Route::get('/transaksi/detail/{id}', [TransaksiController::class, 'detail'])
+    ->middleware('auth')
+    ->name('transaksi/detail');
 
 // Pelanggan
 Route::get('/pelanggan', [PelangganController::class, 'index'])

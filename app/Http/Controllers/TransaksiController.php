@@ -20,4 +20,15 @@ class TransaksiController extends Controller
             'semuaTransaksi' => $semuaTransaksi,
         ]);
     }
+
+    public function detail($id)
+    {
+        $transaction = Transaksi::where('id', $id)
+                        ->first()
+                        ->get();
+        
+        return Inertia::render('Transaksi/Detail', [
+            'transaksi' => $transaction
+        ]);
+    }
 }

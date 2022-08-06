@@ -1,4 +1,5 @@
 <script setup>
+import { Link } from '@inertiajs/inertia-vue3';
 import { currencyFormat } from '@/utils/currencyFormat.ts';
 import { dateFormat } from '@/utils/dateFormat.ts';
 import BaseLayout from '@/Components/layouts/BaseLayout.vue';
@@ -31,7 +32,12 @@ defineProps(['semuaTransaksi']);
               <td>{{ transaksi.status_selesai ? 'Selesai' : 'Dalam Proses' }}</td>
               <td>
                 <button type="button" class="btn btn-success">Selesai</button>
-                <button type="button" class="btn btn-secondary">Detail</button>
+                <Link :href="`/transaksi/detail/${transaksi.id}`"
+                  class="btn btn-secondary"
+                >
+                  Detail
+                </Link>
+                <!-- <button type="button" class="btn btn-secondary">Detail</button> -->
               </td>
             </tr>
           </tbody>
