@@ -4,12 +4,10 @@ import { Link } from '@inertiajs/inertia-vue3';
 import { currencyFormat } from '@/utils/currencyFormat';
 import { store } from '@/store';
 
-import Navbar from '@/Components/Navbar.vue';
+import BaseLayout from '@/Components/layouts/BaseLayout.vue';
 import CategoryCard from '@/Components/CategoryCard.vue';
-import UserCard from '@/Components/UserCard.vue';
 import ServiceCard from '@/Components/ServiceCard.vue';
 import BillCard from '@/Components/BillCard.vue';
-import bgImage from '@/assets/img/bg-full.jpeg';
 
 defineProps(['layananList', 'kategoriList']);
 
@@ -17,12 +15,9 @@ const totalString = computed(() => currencyFormat(store.total));
 </script>
 
 <template>
-  <div class="wrapper"
-    :style="{ backgroundImage: `url('${bgImage}')`}"
-  >
-    <Navbar class="sidebar"/>
-    <main class="main">
-      <h2 class="title">Daftar Layanan</h2>
+  <BaseLayout>
+    <template #title>Layanan</template>
+    <template #content>
       <div class="category-list">
         <CategoryCard name="Semua" icon="ion:albums" />
         <CategoryCard v-for="kategori in kategoriList"
@@ -37,22 +32,20 @@ const totalString = computed(() => currencyFormat(store.total));
           :onClick="() => store.addItem(layanan)"
         />
       </div>
-    </main>
-    <aside class="side-content">
-      <div class="side-content__user-wrapper">
-        <UserCard name="Joko Susanto" position="Cashier" />
+    </template>
+    <template #side-title>Bill</template>
+    <template #side-content>
+      <div class="bill__content">
+        <BillCard v-for="bill in store.cart" 
+          :bill="bill"
+        />
       </div>
-      <div class="bill bg-secondary">
-        <span class="bill__title">Bill</span>
-        <div class="bill__content">
-          <BillCard v-for="bill in store.cart" 
-            :bill="bill"
-          />
-        </div>
 
+      <div class="bill__btn-wrapper">
         <div class="bill__total-wrapper">
           Total: <span class="bill__total">{{ totalString }}</span>
         </div>
+
         <Link
           class="bill__next-btn bg-primary text-light"
           href="/checkout"
@@ -60,8 +53,9 @@ const totalString = computed(() => currencyFormat(store.total));
           Selanjutnya
         </Link>
       </div>
-    </aside>
-  </div>
+
+    </template>
+  </BaseLayout>
 </template>
 
 <style scoped lang="scss">
@@ -79,7 +73,7 @@ const totalString = computed(() => currencyFormat(store.total));
 }
 
 .side-content {
-  width: 35%;
+  width: 30%;
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -110,19 +104,27 @@ const totalString = computed(() => currencyFormat(store.total));
     padding-bottom: 2rem;
   }
 
-  &__total-wrapper {
+  &__btn-wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     font-size: 1.5rem;
-    padding-bottom: 0.75rem;
+    // padding-bottom: 0.75rem;
+  }
+
+  &__total-wrapper {
+    display: flex;
+    padding-bottom: 0.5rem;
   }
 
   &__total {
+    flex-grow: 1;
+    text-align: end;
     font-weight: bold;
   }
 
   &__next-btn {
-    padding: 1.5rem 1rem;
+    padding: 0.75rem;
     border-radius: 10px;
     font-size: 1.5rem;
     text-align: center;

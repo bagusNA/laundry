@@ -61,7 +61,7 @@ const subtotal = computed(() => currencyFormat(props.bill.harga * props.bill.qty
   grid-template-rows: 2fr 1fr;
   gap: 10px 2rem;
   border-radius: 10px;
-  padding: 0 10px;
+  // padding: 0 10px;
 
   &__logo {
     font-size: 2rem;
