@@ -24,11 +24,11 @@ const createPesanan = useForm({
 const createPesananAction = () => {
   createPesanan.post('/checkout/create', {
     preserveState: true,
-    resetOnSuccess: false
-  });
-
-  Inertia.visit('/', {
-    onFinish: () => store.clearCart()
+    resetOnSuccess: false,
+    onFinish: () => {
+      Inertia.visit('/');
+      store.clearCart();
+    }
   });
 }
 
