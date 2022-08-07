@@ -45,6 +45,7 @@ import bgImage from '@/assets/img/bg-full.jpeg';
 
 .aside-wrapper {
   width: 35%;
+  height: 100vh;
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -56,23 +57,26 @@ import bgImage from '@/assets/img/bg-full.jpeg';
 }
 
 .aside {
-  flex-grow: 1;
-  padding: 1rem 1rem;
-  border-top-left-radius: 10px;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+  border-top-left-radius: 10px;
 
   &__title {
     font-size: 1.5rem;
-    padding-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
   }
 
   &__content {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 2rem 0;
-    // padding-bottom: 2rem;
+    gap: 1rem 0;
+    overflow-y: auto;
+    flex-grow: 1;
+    min-height: 0;
+    padding: 0 1rem;
+    padding-bottom: 1rem;
   }
 }
 
