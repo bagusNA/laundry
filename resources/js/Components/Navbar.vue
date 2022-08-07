@@ -113,6 +113,7 @@ const route = computed(() => usePage().props.value.currentRoute);
 
 @media only screen and (min-width: 768px) {
   .sidebar {
+    min-width: 6rem;
     font-size: 0.8rem;
   }
   .nav-icon {
@@ -123,5 +124,4 @@ const route = computed(() => usePage().props.value.currentRoute);
     font-size: 2rem;
   }
 }
-
 </style>

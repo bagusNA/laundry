@@ -23,20 +23,3 @@ h1, h2, h3, h4, h5, h6, p {
   justify-content: center;
   align-items: center;
 }
-
-.main {
-  flex: 1;
-  padding: 1rem 1.5rem;
-  height: 100vh;
-  overflow: auto;
-
-  .title {
-    padding-bottom: 1.5rem;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .sidebar {
-    min-width: 6rem;
-  }
-}

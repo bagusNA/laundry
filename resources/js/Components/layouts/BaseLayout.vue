@@ -32,6 +32,17 @@ import bgImage from '@/assets/img/bg-full.jpeg';
 </template>
 
 <style scoped lang="scss">
+.main {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  height: 100vh;
+  overflow: auto;
+
+  .title {
+    padding-bottom: 1.5rem;
+  }
+}
+
 .aside-wrapper {
   width: 35%;
   padding-top: 0.5rem;

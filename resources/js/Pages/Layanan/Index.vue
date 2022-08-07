@@ -35,7 +35,7 @@ const totalString = computed(() => currencyFormat(store.total));
     </template>
     <template #side-title>Bill</template>
     <template #side-content>
-      <div class="bill__content">
+      <div class="bill">
         <BillCard v-for="bill in store.cart" 
           :bill="bill"
         />
@@ -72,44 +72,17 @@ const totalString = computed(() => currencyFormat(store.total));
   gap: 15px;
 }
 
-.side-content {
-  width: 30%;
-  padding-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  &__user-wrapper {
-    padding-right: 1.5rem;
-  }
-}
-
 .bill {
   flex-grow: 1;
-  padding: 1rem 1.5rem;
-  border-top-left-radius: 10px;
   display: flex;
   flex-direction: column;
-
-  &__title {
-    font-size: 2rem;
-    padding-bottom: 1rem;
-  }
-
-  &__content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem 0;
-    padding-bottom: 2rem;
-  }
+  gap: 1.5rem 0;
 
   &__btn-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     font-size: 1.5rem;
-    // padding-bottom: 0.75rem;
   }
 
   &__total-wrapper {
@@ -134,16 +107,6 @@ const totalString = computed(() => currencyFormat(store.total));
     &:hover {
       cursor: pointer;
       opacity: 0.9;
-    }
-  }
-}
-
-@media only screen and (min-width: 768px) {  
-  .main {
-    padding: 1.5rem 2rem;
-
-    .service-list {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
   }
 }
