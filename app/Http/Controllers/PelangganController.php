@@ -8,10 +8,18 @@ use Inertia\Inertia;
 
 class PelangganController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Pelanggan/Index', [
-            'pelangganList' => Pelanggan::latest()->get(),
+            'pelangganList' => function () use ($request) {
+                if ($request->has('q')) {
+                    $nama = $request->input('q');
+
+                    return Pelanggan::where('nama', 'LIKE', "%$nama%")->get();
+                }
+                // TODO: pagination
+                return Pelanggan::latest()->get();
+            },
         ]);
     }
 
