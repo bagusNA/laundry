@@ -110,4 +110,16 @@ const totalString = computed(() => currencyFormat(store.total));
     }
   }
 }
+
+@media only screen and (min-width: 768px) {
+  .service-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .service-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
 </style>
