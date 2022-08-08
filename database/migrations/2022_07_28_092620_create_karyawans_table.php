@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('nama', 128);
             $table->string('posisi_kerja', 128);
-            $table->boolean('isKasir');
+            $table->enum('role', ['karyawan', 'kasir', 'admin']);
             $table->timestamps();
             $table->rememberToken();
         });

@@ -11,11 +11,15 @@ class Karyawan extends Authenticatable
 
     protected $table = 'tb_karyawan';
 
-    protected $fillable = [
-        'username',
-        'password',
-        'posisi_kerja',
-        'isKasir'
+    // protected $fillable = [
+    //     'username',
+    //     'password',
+    //     'posisi_kerja',
+    //     'isKasir'
+    // ];
+
+    protected $guarded = [
+        'id',
     ];
 
     protected $hidden = [

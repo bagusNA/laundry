@@ -20,7 +20,7 @@ class KaryawanSeeder extends Seeder
             'password' => '$2a$12$S8VY0q5FHo9.qOiZAvS4U.T1IoHitALU6NhDseyNQTKs/GgbJS6.q',
             'nama' => 'Bagus',
             'posisi_kerja' => 'Kasir',
-            'isKasir' => true
+            'role' => 'kasir'
         ]);
     }
 }
