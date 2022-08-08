@@ -1,7 +1,9 @@
 <script setup>
+import { reactive } from 'vue';
+import { useForm } from '@inertiajs/inertia-vue3';
 import BaseLayout from '@/Components/layouts/BaseLayout.vue';
 import CheckoutDetailCard from '@/Components/layouts/CheckoutDetailCard.vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import Modal from '@/Components/layouts/Modal.vue';
 
 defineProps(['pelangganList']);
 
@@ -12,6 +14,10 @@ const searchAction = () => {
     preserveState: true,
   })
 };
+
+const showModal = reactive({
+  tambahPelanggan: false
+});
 </script>
 
 <template>
@@ -61,9 +67,41 @@ const searchAction = () => {
         </CheckoutDetailCard>
       </div>
     </template>
-    <template #side-title>WIP</template>
-    <template #side-content>WIP</template>
+    <template #side-title>Pilihan</template>
+    <template #side-content>
+      <button class="btn btn-primary"
+        @click="showModal.tambahPelanggan = true"
+      >
+        Tambah
+      </button>
+      <button class="btn btn-primary"
+        @click="showModal.tambahPelanggan = true"
+      >
+        Edit
+      </button>
+      <button class="btn btn-primary"
+        @click="showModal.tambahPelanggan = true"
+      >
+        Terbaru
+      </button>
+    </template>
   </BaseLayout>
+
+  <Modal :show="showModal.tambahPelanggan">
+    <template #header>
+      <h4>Tambah Pelanggan</h4>
+    </template>
+    <template #body>
+      WIP
+    </template>
+    <template #footer>
+      Close di sini
+      <button class="btn btn-primary"
+        @click="showModal.tambahPelanggan = false">
+        Tambah
+      </button>
+    </template>
+  </Modal>
 </template>
 
 <style scoped lang="scss">
