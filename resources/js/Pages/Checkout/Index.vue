@@ -232,13 +232,12 @@ onUpdated(() => {
         <span class="bill__title">Summary</span>
         <div class="bill__content">
           <div class="bill__total">
-            Total: <span class="bill__total__value">Rp. {{ store.total }}</span>
+            Total: 
+            <span class="bill__total__value">
+              {{ currencyFormat(store.total) }}
+            </span>
           </div>
         </div>
-
-        <!-- <div class="bill__total-wrapper">
-          Total: <span class="bill__total">{{ }}</span>
-        </div> -->
         <div
           class="bill__next-btn bg-primary text-light"
           @click="createPesananAction"
@@ -291,7 +290,6 @@ $secondary: #FFFFFF;
 }
 
 .bill {
-  // flex-grow: 1;
   padding: 1rem 1.5rem;
   margin-right: 1.5rem;
   border-radius: 10px;
@@ -335,7 +333,6 @@ $secondary: #FFFFFF;
 }
 
 .pelanggan-wrapper {
-  // min-height: 5rem;
   padding: 0.5rem;
 }
 
@@ -357,7 +354,7 @@ $secondary: #FFFFFF;
   overflow: auto;
 }
 
-// Change nav-pills color
+// This changes bootstrap's nav-pills color
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: $primary;
   background-color: $secondary;
