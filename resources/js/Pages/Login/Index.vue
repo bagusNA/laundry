@@ -1,6 +1,7 @@
 <script setup>
 import { reactive } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+import { usePage } from '@inertiajs/inertia-vue3';
 import { Icon } from '@iconify/vue';
 import bgImage from '@/assets/img/bg-full.jpeg';
 
@@ -10,7 +11,12 @@ const formData = reactive({
 });
 
 const submit = () => {
-  Inertia.post('/login', formData);
+  Inertia.post('/login', formData, {
+    onFinish: () => {
+      if (!usePage().props.value.flash.error) return;
+      formData.password = null;
+    }
+  });
 };
 </script>
 
