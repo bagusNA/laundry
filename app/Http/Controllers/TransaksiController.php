@@ -23,7 +23,8 @@ class TransaksiController extends Controller
 
     public function detail($id)
     {
-        $transaction = Transaksi::find($id)->load('pelanggan');
+        $transaction = Transaksi::find($id)
+                                ->load('pelanggan', 'details.layanan');
 
         return Inertia::render('Transaksi/Detail', [
             'transaksi' => $transaction,

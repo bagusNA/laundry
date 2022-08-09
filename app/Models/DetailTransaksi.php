@@ -18,8 +18,8 @@ class DetailTransaksi extends Model
         return $this->belongsTo(Transaksi::class, 'id_transaksi');
     }
 
-    public function jenis()
+    public function layanan()
     {
-        return $this->hasOne(Layanan::class, 'id_layanan');
+        return $this->hasOne(Layanan::class, 'id', 'id_layanan');
     }
 }
