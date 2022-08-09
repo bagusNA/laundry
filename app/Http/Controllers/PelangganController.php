@@ -23,6 +23,15 @@ class PelangganController extends Controller
         ]);
     }
 
+    public function detail($id)
+    {
+        $pelanggan = Pelanggan::find($id)->load('transaksi');
+
+        return Inertia::render('Pelanggan/Detail', [
+            'pelanggan' => $pelanggan
+        ]);
+    }
+
     public function create(Request $request)
     {
         $values = $request->validate([

@@ -59,6 +59,10 @@ Route::get('/pelanggan', [PelangganController::class, 'index'])
     ->middleware('auth')
     ->name('pelanggan');
 
+Route::get('/pelanggan/detail/{id}', [PelangganController::class, 'detail'])
+    ->middleware('auth')
+    ->name('pelanggan/detail');
+
 Route::post('/pelanggan/create', [PelangganController::class, 'create'])
     ->middleware('auth')
     ->name('pelanggan/create');

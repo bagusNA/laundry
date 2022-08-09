@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm, Link } from '@inertiajs/inertia-vue3';
 import BaseLayout from '@/Components/layouts/BaseLayout.vue';
 import CheckoutDetailCard from '@/Components/layouts/CheckoutDetailCard.vue';
 import Modal from '@/Components/layouts/Modal.vue';
@@ -59,7 +59,11 @@ const showModal = reactive({
                 <td>{{ pelanggan.no_hp }}</td>
                 <td>{{ pelanggan.alamat }}</td>
                 <td>
-                  <button type="button" class="btn btn-secondary">Detail</button>
+                  <Link :href="`/pelanggan/detail/${pelanggan.id}`"
+                    class="btn btn-secondary"
+                  >
+                    Detail
+                  </Link>
                 </td>
               </tr>
             </tbody>

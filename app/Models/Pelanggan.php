@@ -13,8 +13,8 @@ class Pelanggan extends Model
 
     protected $guarded = ['id'];
 
-    public function transaksis()
+    public function transaksi()
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->hasMany(Transaksi::class, 'id_pelanggan');
     }
 }
