@@ -231,6 +231,9 @@ onUpdated(() => {
       <div class="bill bg-secondary">
         <span class="bill__title">Summary</span>
         <div class="bill__content">
+          <div class="bill__total">
+            Total: <span class="bill__total__value">Rp. {{ store.total }}</span>
+          </div>
         </div>
 
         <!-- <div class="bill__total-wrapper">
@@ -288,9 +291,10 @@ $secondary: #FFFFFF;
 }
 
 .bill {
-  flex-grow: 1;
+  // flex-grow: 1;
   padding: 1rem 1.5rem;
-  border-top-left-radius: 10px;
+  margin-right: 1.5rem;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
 
@@ -307,19 +311,17 @@ $secondary: #FFFFFF;
     padding-bottom: 2rem;
   }
 
-  &__total-wrapper {
+  &__total {
     display: flex;
     justify-content: space-between;
-    font-size: 1.5rem;
-    padding-bottom: 0.75rem;
-  }
-
-  &__total {
-    font-weight: bold;
+    font-size: 1.3rem;
+    &__value {
+      font-weight: bold;
+    }
   }
 
   &__next-btn {
-    padding: 1.5rem 1rem;
+    padding: 0.75rem;
     border-radius: 10px;
     font-size: 1.5rem;
     text-align: center;
